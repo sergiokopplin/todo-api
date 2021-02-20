@@ -1,5 +1,6 @@
 import { ValidationComposite } from '@/validation/validators'
 import { ValidationSpy } from '@/tests/presentation/mocks'
+import { MissingParamError } from '@/presentation/errors'
 
 interface SutTypes {
   sut: ValidationComposite
@@ -27,5 +28,13 @@ describe('Validation Composite', () => {
     expect(sut.validate({
       field: 'any_field'
     })).toEqual(validations[0].error)
+  })
+
+  test('Should return the very first error when invalid', () => {
+    const { sut, validations } = makeSut()
+    validations[1].error = new MissingParamError('field')
+    expect(sut.validate({
+      field: 'any_field'
+    })).toEqual(validations[1].error)
   })
 })
