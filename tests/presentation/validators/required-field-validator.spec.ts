@@ -22,4 +22,9 @@ describe('RequiredFieldValidator', () => {
     const { sut } = makeSut()
     expect(sut.validate({ invalidField: field })).toEqual(new MissingParamError('email'))
   })
+
+  test('Should return empty if validation is ok', () => {
+    const { sut } = makeSut()
+    expect(sut.validate({ email: field })).toBeFalsy()
+  })
 })
