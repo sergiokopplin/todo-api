@@ -2,8 +2,8 @@ import faker from 'faker'
 
 import { SignUpController } from '@/presentation/controllers'
 import { AddAccountSpy } from '@/tests/presentation/mocks'
-import { ServerError } from '@/presentation/errors'
-import { serverError } from '@/presentation/helpers'
+import { ServerError, EmailInUseError } from '@/presentation/errors'
+import { forbiddenError, serverError } from '@/presentation/helpers'
 
 const mockRequest = (): SignUpController.Request => {
   const password = faker.internet.password()
@@ -45,5 +45,12 @@ describe('SignUp Controller', () => {
     const addSpy = jest.spyOn(addAccountSpy, 'add')
     await sut.handle(mockRequest())
     expect(addSpy).toHaveBeenCalledWith(addAccountSpy.params)
+  })
+
+  test('Should return 403 when account exists', async () => {
+    const { sut, addAccountSpy } = makeSut()
+    addAccountSpy.result = false
+    const response = await sut.handle(mockRequest())
+    expect(response).toEqual(forbiddenError(new EmailInUseError()))
   })
 })

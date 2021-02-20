@@ -1,13 +1,17 @@
 import { AddAccount } from '@/domain/usecases'
 import { Controller, HttpResponse } from '@/presentation/protocols'
-import { serverError } from '@/presentation/helpers'
+import { serverError, forbiddenError } from '@/presentation/helpers'
+import { EmailInUseError } from '@/presentation/errors'
 
 export class SignUpController implements Controller {
   constructor (private readonly addAccount: AddAccount) {}
 
   async handle (request: SignUpController.Request): Promise<HttpResponse> {
     try {
-      await this.addAccount.add(request)
+      const isValid = await this.addAccount.add(request)
+      if (!isValid) {
+        return forbiddenError(new EmailInUseError())
+      }
       return null
     } catch (error) {
       return serverError(error)
