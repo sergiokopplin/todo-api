@@ -2,6 +2,8 @@ import faker from 'faker'
 
 import { SignUpController } from '@/presentation/controllers'
 import { AddAccountSpy } from '@/tests/presentation/mocks'
+import { ServerError } from '@/presentation/errors'
+import { serverError } from '@/presentation/helpers'
 
 const mockRequest = (): SignUpController.Request => {
   const password = faker.internet.password()
@@ -29,6 +31,15 @@ const makeSut = (): SutTypes => {
 }
 
 describe('SignUp Controller', () => {
+  test('Should throw if AddAccount throws', async () => {
+    const { sut, addAccountSpy } = makeSut()
+    jest.spyOn(addAccountSpy, 'add').mockImplementationOnce(async () => {
+      return await Promise.reject(new ServerError(null))
+    })
+    const response = await sut.handle(mockRequest())
+    expect(response).toEqual(serverError(new ServerError(null)))
+  })
+
   test('Should call AddAccount with correct params', async () => {
     const { sut, addAccountSpy } = makeSut()
     const addSpy = jest.spyOn(addAccountSpy, 'add')
