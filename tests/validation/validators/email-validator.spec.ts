@@ -1,6 +1,7 @@
+import faker from 'faker'
+
 import { EmailValidator } from '@/validation/validators'
 import { InvalidParamError } from '@/presentation/errors'
-
 import { EmailValidationSpy } from '@/tests/validation/mocks'
 
 interface SutTypes {
@@ -23,5 +24,10 @@ describe('EmailValidator', () => {
     const { sut, emailValidationSpy } = makeSut()
     emailValidationSpy.result = false
     expect(sut.validate({ email: 'invalid_email.com' })).toEqual(new InvalidParamError('email'))
+  })
+
+  test('Should return empty if validation is ok', () => {
+    const { sut } = makeSut()
+    expect(sut.validate({ email: faker.internet.email() })).toBeFalsy()
   })
 })
