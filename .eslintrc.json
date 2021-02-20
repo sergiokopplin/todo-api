@@ -11,6 +11,7 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "import/export": 0,
-    "@typescript-eslint/no-namespace": 0
+    "@typescript-eslint/no-namespace": 0,
+    "@typescript-eslint/strict-boolean-expressions": 0
   }
 }
