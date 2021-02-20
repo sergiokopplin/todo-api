@@ -30,8 +30,9 @@ const makeSut = (): SutTypes => {
 
 describe('SignUp Controller', () => {
   test('Should call AddAccount with correct params', async () => {
-    const { sut } = makeSut()
-    const result = await sut.handle(mockRequest())
-    expect(result).toBe(null)
+    const { sut, addAccountSpy } = makeSut()
+    const addSpy = jest.spyOn(addAccountSpy, 'add')
+    await sut.handle(mockRequest())
+    expect(addSpy).toHaveBeenCalledWith(addAccountSpy.params)
   })
 })
