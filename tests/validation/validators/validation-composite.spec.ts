@@ -37,4 +37,11 @@ describe('Validation Composite', () => {
       field: 'any_field'
     })).toEqual(validations[1].error)
   })
+
+  test('Should return empty when validation is ok', () => {
+    const { sut } = makeSut()
+    expect(sut.validate({
+      field: 'any_field'
+    })).toBeFalsy()
+  })
 })
