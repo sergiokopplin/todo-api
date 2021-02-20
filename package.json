@@ -2,6 +2,14 @@
   "name": "todo-mvc-api-v2",
   "author": "Sergio Kopplin <sergiokopplin@gmail.com>",
   "version": "1.0.0",
-  "scripts": {},
-  "devDependencies": {}
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "jest": "^26.6.3",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5"
+  },
+  "dependencies": {}
 }
