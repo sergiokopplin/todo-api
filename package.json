@@ -3,8 +3,7 @@
   "author": "Sergio Kopplin <sergiokopplin@gmail.com>",
   "version": "1.0.0",
   "scripts": {
-    "test": "jest",
-    "lint": "eslint 'src/**' --fix"
+    "test": "jest"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",
