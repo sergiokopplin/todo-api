@@ -1,9 +1,17 @@
 import faker from 'faker'
 
 import { SignUpController } from '@/presentation/controllers'
-import { AddAccountSpy } from '@/tests/presentation/mocks'
-import { ServerError, EmailInUseError } from '@/presentation/errors'
-import { forbiddenError, serverError } from '@/presentation/helpers'
+import { AddAccountSpy, ValidationSpy } from '@/tests/presentation/mocks'
+import {
+  ServerError,
+  EmailInUseError,
+  InvalidParamError
+} from '@/presentation/errors'
+import {
+  badRequestError,
+  forbiddenError,
+  serverError
+} from '@/presentation/helpers'
 
 const mockRequest = (): SignUpController.Request => {
   const password = faker.internet.password()
@@ -17,20 +25,38 @@ const mockRequest = (): SignUpController.Request => {
 
 interface SutTypes {
   sut: SignUpController
+  validationSpy: ValidationSpy
   addAccountSpy: AddAccountSpy
 }
 
 const makeSut = (): SutTypes => {
   const addAccountSpy = new AddAccountSpy()
-  const sut = new SignUpController(addAccountSpy)
+  const validationSpy = new ValidationSpy()
+  const sut = new SignUpController(validationSpy, addAccountSpy)
 
   return {
     sut,
+    validationSpy,
     addAccountSpy
   }
 }
 
 describe('SignUp Controller', () => {
+  test('Should throw if Validation throws', async () => {
+    const { sut, validationSpy } = makeSut()
+    validationSpy.error = new InvalidParamError('email')
+    const response = await sut.handle(mockRequest())
+    expect(response).toEqual(badRequestError(validationSpy.error))
+  })
+
+  test('Should call Validation correctly', async () => {
+    const { sut, validationSpy } = makeSut()
+    const validateSpy = jest.spyOn(validationSpy, 'validate')
+    const request = mockRequest()
+    await sut.handle(request)
+    expect(validateSpy).toHaveBeenCalledWith(request)
+  })
+
   test('Should throw if AddAccount throws', async () => {
     const { sut, addAccountSpy } = makeSut()
     jest.spyOn(addAccountSpy, 'add').mockImplementationOnce(async () => {
