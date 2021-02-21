@@ -4,9 +4,9 @@ import { serverError, forbiddenError } from '@/presentation/helpers'
 import { EmailInUseError } from '@/presentation/errors'
 
 export class SignUpController implements Controller {
-  constructor (private readonly addAccount: AddAccount) {}
+  constructor(private readonly addAccount: AddAccount) {}
 
-  async handle (request: SignUpController.Request): Promise<HttpResponse> {
+  async handle(request: SignUpController.Request): Promise<HttpResponse> {
     try {
       const isValid = await this.addAccount.add(request)
       if (!isValid) {

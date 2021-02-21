@@ -23,7 +23,9 @@ describe('EmailValidator', () => {
   test('Should return an error if validation fails', () => {
     const { sut, emailValidationSpy } = makeSut()
     emailValidationSpy.result = false
-    expect(sut.validate({ email: 'invalid_email.com' })).toEqual(new InvalidParamError('email'))
+    expect(sut.validate({ email: 'invalid_email.com' })).toEqual(
+      new InvalidParamError('email')
+    )
   })
 
   test('Should return empty if validation is ok', () => {

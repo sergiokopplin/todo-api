@@ -20,7 +20,9 @@ const makeSut = (): SutTypes => {
 describe('RequiredFieldValidator', () => {
   test('Should return an error if validation fails', () => {
     const sut = new CompareFieldsValidator('field', 'fieldToCompare')
-    expect(sut.validate({ field: field, fieldToCompare: 'invalid' })).toEqual(new InvalidParamError('field'))
+    expect(sut.validate({ field: field, fieldToCompare: 'invalid' })).toEqual(
+      new InvalidParamError('field')
+    )
   })
 
   test('Should return empty validation is ok', () => {
