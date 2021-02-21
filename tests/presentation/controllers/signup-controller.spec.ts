@@ -99,4 +99,12 @@ describe('SignUp Controller', () => {
     const response = await sut.handle(mockRequest())
     expect(response).toEqual(serverError(new ServerError(null)))
   })
+
+  test('Should call Authentication with correct params', async () => {
+    const { sut, authenticationSpy } = makeSut()
+    const authSpy = jest.spyOn(authenticationSpy, 'auth')
+    const request = mockRequest()
+    await sut.handle(request)
+    expect(authSpy).toHaveBeenCalledWith(request)
+  })
 })
