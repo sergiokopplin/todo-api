@@ -1,7 +1,11 @@
 import faker from 'faker'
 
 import { SignUpController } from '@/presentation/controllers'
-import { AddAccountSpy, ValidationSpy } from '@/tests/presentation/mocks'
+import {
+  AddAccountSpy,
+  ValidationSpy,
+  AuthenticationSpy
+} from '@/tests/presentation/mocks'
 import {
   ServerError,
   EmailInUseError,
@@ -27,17 +31,24 @@ interface SutTypes {
   sut: SignUpController
   validationSpy: ValidationSpy
   addAccountSpy: AddAccountSpy
+  authenticationSpy: AuthenticationSpy
 }
 
 const makeSut = (): SutTypes => {
   const addAccountSpy = new AddAccountSpy()
   const validationSpy = new ValidationSpy()
-  const sut = new SignUpController(validationSpy, addAccountSpy)
+  const authenticationSpy = new AuthenticationSpy()
+  const sut = new SignUpController(
+    validationSpy,
+    addAccountSpy,
+    authenticationSpy
+  )
 
   return {
     sut,
     validationSpy,
-    addAccountSpy
+    addAccountSpy,
+    authenticationSpy
   }
 }
 
@@ -78,5 +89,14 @@ describe('SignUp Controller', () => {
     addAccountSpy.result = false
     const response = await sut.handle(mockRequest())
     expect(response).toEqual(forbiddenError(new EmailInUseError()))
+  })
+
+  test('Should throw if Authentication throws', async () => {
+    const { sut, authenticationSpy } = makeSut()
+    jest.spyOn(authenticationSpy, 'auth').mockImplementationOnce(async () => {
+      return await Promise.reject(new ServerError(null))
+    })
+    const response = await sut.handle(mockRequest())
+    expect(response).toEqual(serverError(new ServerError(null)))
   })
 })
