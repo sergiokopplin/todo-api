@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "check": "npm-check -s -u",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "devDependencies": {
     "@types/faker": "^5.1.7",
