@@ -14,6 +14,7 @@ import {
 import {
   badRequestError,
   forbiddenError,
+  ok,
   serverError
 } from '@/presentation/helpers'
 
@@ -106,5 +107,11 @@ describe('SignUp Controller', () => {
     const request = mockRequest()
     await sut.handle(request)
     expect(authSpy).toHaveBeenCalledWith(request)
+  })
+
+  test('Should return 200 if ok', async () => {
+    const { sut, authenticationSpy } = makeSut()
+    const response = await sut.handle(mockRequest())
+    expect(response).toEqual(ok(authenticationSpy.result))
   })
 })
