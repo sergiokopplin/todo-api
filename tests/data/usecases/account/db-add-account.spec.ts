@@ -1,20 +1,23 @@
 import { DbAddAccount } from '@/data/usecases/account'
-import { CheckAccountByEmailRepositorySpy } from '@/tests/data/mocks'
+import { CheckAccountByEmailRepositorySpy, HasherSpy } from '@/tests/data/mocks'
 import { mockAddAccountParams } from '@/tests/domain/mocks'
 import { throwError } from '@/tests/presentation/mocks'
 
 interface SutTypes {
   sut: DbAddAccount
   checkAccountByEmailRepositorySpy: CheckAccountByEmailRepositorySpy
+  hasherSpy: HasherSpy
 }
 
 const makeSut = (): SutTypes => {
   const checkAccountByEmailRepositorySpy = new CheckAccountByEmailRepositorySpy()
-  const sut = new DbAddAccount(checkAccountByEmailRepositorySpy)
+  const hasherSpy = new HasherSpy()
+  const sut = new DbAddAccount(checkAccountByEmailRepositorySpy, hasherSpy)
 
   return {
     sut,
-    checkAccountByEmailRepositorySpy
+    checkAccountByEmailRepositorySpy,
+    hasherSpy
   }
 }
 
@@ -35,11 +38,18 @@ describe('DbAddAccount', () => {
     expect(checkAccountByEmailRepositorySpy.email).toBe(addAccountParams.email)
   })
 
-  test('Shouuld return false if account already exists', async () => {
+  test('Should return false if account already exists', async () => {
     const { sut, checkAccountByEmailRepositorySpy } = makeSut()
     checkAccountByEmailRepositorySpy.result = true
     const addAccountParams = mockAddAccountParams()
     const response = await sut.add(addAccountParams)
     expect(response).toBe(false)
+  })
+
+  test('Should throw if Hasher throws', async () => {
+    const { sut, hasherSpy } = makeSut()
+    jest.spyOn(hasherSpy, 'hash').mockImplementationOnce(throwError)
+    const promise = sut.add(mockAddAccountParams())
+    await expect(promise).rejects.toThrow()
   })
 })
