@@ -8,8 +8,10 @@
     "test:ci": "jest --coverage"
   },
   "devDependencies": {
+    "@shelf/jest-mongodb": "^1.2.3",
     "@types/faker": "^5.1.7",
     "@types/jest": "^26.0.20",
+    "@types/mongodb": "^3.6.8",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
     "eslint": "^7.20.0",
@@ -41,5 +43,8 @@
   },
   "lint-staged": {
     "*.ts": "eslint --cache --fix"
+  },
+  "dependencies": {
+    "mongodb": "^3.6.4"
   }
 }
