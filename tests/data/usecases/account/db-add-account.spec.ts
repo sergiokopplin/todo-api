@@ -52,4 +52,11 @@ describe('DbAddAccount', () => {
     const promise = sut.add(mockAddAccountParams())
     await expect(promise).rejects.toThrow()
   })
+
+  test('Should call Hasher with correct values', async () => {
+    const { sut, hasherSpy } = makeSut()
+    const addAccountParams = mockAddAccountParams()
+    await sut.add(addAccountParams)
+    expect(hasherSpy.plaintext).toBe(addAccountParams.password)
+  })
 })
