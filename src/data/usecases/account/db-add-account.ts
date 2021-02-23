@@ -8,6 +8,7 @@ export class DbAddAccount implements AddAccount {
 
   async add(account: AddAccount.Params): Promise<AddAccount.Result> {
     await this.checkAccountByEmailRepository.checkByEmail(account.email)
-    return null
+    const isValid = false
+    return isValid
   }
 }
