@@ -16,10 +16,13 @@ export class DbAddAccount implements AddAccount {
     const exists = await this.checkAccountByEmailRepository.checkByEmail(
       account.email
     )
-    const isValid = false
+    let isValid = false
     if (!exists) {
       const hashed = await this.hasher.hash(account.password)
-      await this.addAccountRepository.add({ ...account, password: hashed })
+      isValid = await this.addAccountRepository.add({
+        ...account,
+        password: hashed
+      })
     }
     return isValid
   }
