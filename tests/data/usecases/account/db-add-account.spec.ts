@@ -97,4 +97,11 @@ describe('DbAddAccount', () => {
     const response = await sut.add(addAccountParams)
     expect(response).toBe(false)
   })
+
+  test('Should return true if ok', async () => {
+    const { sut } = makeSut()
+    const addAccountParams = mockAddAccountParams()
+    const response = await sut.add(addAccountParams)
+    expect(response).toBe(true)
+  })
 })
