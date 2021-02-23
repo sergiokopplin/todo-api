@@ -34,4 +34,12 @@ describe('DbAddAccount', () => {
     await sut.add(addAccountParams)
     expect(checkAccountByEmailRepositorySpy.email).toBe(addAccountParams.email)
   })
+
+  test('Shouuld return false if account already exists', async () => {
+    const { sut, checkAccountByEmailRepositorySpy } = makeSut()
+    checkAccountByEmailRepositorySpy.result = true
+    const addAccountParams = mockAddAccountParams()
+    const response = await sut.add(addAccountParams)
+    expect(response).toBe(false)
+  })
 })
