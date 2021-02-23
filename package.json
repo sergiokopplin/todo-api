@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "scripts": {
     "check": "npm-check -s -u",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "test:ci": "jest --coverage"
   },
   "devDependencies": {
     "@types/faker": "^5.1.7",
@@ -35,7 +36,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "npm run test"
+      "pre-push": "npm run test:ci"
     }
   },
   "lint-staged": {
