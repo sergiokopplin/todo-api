@@ -19,7 +19,7 @@ export class CheckAccountByEmailRepositorySpy
 
 export class AddAccountRepositorySpy implements AddAccountRepository {
   account: Account
-  result = false
+  result = true
 
   async add(
     account: AddAccountRepository.Params

@@ -79,4 +79,14 @@ describe('DbAddAccount', () => {
     const promise = sut.add(mockAddAccountParams())
     await expect(promise).rejects.toThrow()
   })
+
+  test('Should call AddAccountRepository with correct params', async () => {
+    const { sut, addAccountRepositorySpy, hasherSpy } = makeSut()
+    const addAccountParams = mockAddAccountParams()
+    await sut.add(addAccountParams)
+    expect(addAccountRepositorySpy.account).toEqual({
+      ...addAccountParams,
+      password: hasherSpy.result
+    })
+  })
 })
