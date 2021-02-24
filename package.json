@@ -45,6 +45,8 @@
     "*.ts": "eslint --cache --fix"
   },
   "dependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "bcrypt": "^5.0.0",
     "mongodb": "^3.6.4"
   }
 }
