@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.3",
+    "@types/bcrypt": "^3.0.0",
     "@types/faker": "^5.1.7",
     "@types/jest": "^26.0.20",
     "@types/mongodb": "^3.6.8",
@@ -45,7 +46,6 @@
     "*.ts": "eslint --cache --fix"
   },
   "dependencies": {
-    "@types/bcrypt": "^3.0.0",
     "bcrypt": "^5.0.0",
     "mongodb": "^3.6.4"
   }
