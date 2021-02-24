@@ -25,4 +25,15 @@ describe('HasherAdapter', () => {
     await sut.hash(password)
     expect(hashSpy).toHaveBeenCalledWith(password, salt)
   })
+
+  test('Should return correctly', async () => {
+    const { sut } = makeSut()
+    const uuid = faker.random.uuid()
+    const password = faker.internet.password()
+    jest
+      .spyOn(bcrypt, 'hash')
+      .mockImplementationOnce(async () => await Promise.resolve(uuid))
+    const result = await sut.hash(password)
+    expect(result).toBe(uuid)
+  })
 })
