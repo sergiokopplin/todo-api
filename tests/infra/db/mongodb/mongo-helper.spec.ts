@@ -1,8 +1,18 @@
+import { Collection } from 'mongodb'
+import faker from 'faker'
+
 import { MongoHelper as sut } from '@/infra/db'
+
+let accountsCollection: Collection
 
 describe('MongoHelper', () => {
   beforeAll(async () => {
     await sut.connect(process.env.MONGO_URL)
+  })
+
+  beforeEach(async () => {
+    accountsCollection = await sut.getCollection('accounts')
+    await accountsCollection.deleteMany({})
   })
 
   afterAll(async () => {
@@ -15,5 +25,19 @@ describe('MongoHelper', () => {
     await sut.disconnect()
     accountCollection = await sut.getCollection('accounts')
     expect(accountCollection).toBeTruthy()
+  })
+
+  test('Should mapId correctly', async () => {
+    const request = {
+      _id: faker.random.uuid(),
+      email: faker.internet.email(),
+      name: faker.name.findName()
+    }
+    const result = sut.mapId(request)
+    expect(result).toEqual({
+      id: request._id,
+      email: request.email,
+      name: request.name
+    })
   })
 })
