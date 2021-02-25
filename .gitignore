@@ -2,3 +2,4 @@ node_modules/
 .eslintcache
 coverage/
 globalConfig.json
+build/
