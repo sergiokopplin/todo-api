@@ -5,18 +5,20 @@
   "scripts": {
     "check": "npm-check -s -u",
     "build": "tsc --project ./",
-    "start": "nodemon src/main/index.ts",
+    "start": "nodemon src/main/server.ts",
     "test": "jest --watch",
     "test:ci": "jest --coverage"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.3",
     "@types/bcrypt": "^3.0.0",
+    "@types/body-parser": "^1.19.0",
     "@types/express": "^4.17.11",
     "@types/faker": "^5.1.7",
     "@types/jest": "^26.0.20",
     "@types/mongodb": "^3.6.8",
     "@types/node": "^14.14.31",
+    "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
     "eslint": "^7.20.0",
@@ -37,6 +39,7 @@
     "nodemon": "^2.0.7",
     "npm-check": "^5.9.2",
     "prettier": "^2.2.1",
+    "supertest": "^6.1.3",
     "ts-jest": "^26.5.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.5"
@@ -52,7 +55,12 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "module-alias": "^2.2.2",
     "mongodb": "^3.6.4"
+  },
+  "_moduleAliases": {
+    "@": "src"
   }
 }
