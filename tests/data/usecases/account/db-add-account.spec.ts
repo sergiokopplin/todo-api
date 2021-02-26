@@ -1,4 +1,4 @@
-import { DbAddAccount } from '@/data/usecases/account'
+import { DbAddAccount } from '@/data/usecases'
 import {
   CheckAccountByEmailRepositorySpy,
   HasherSpy,
