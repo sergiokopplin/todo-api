@@ -7,6 +7,5 @@ app.listen(env.port, () => {
   )
 })
 
-// cors
 // content-type
 // no-cache
