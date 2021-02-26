@@ -1,6 +1,8 @@
+import faker from 'faker'
 import {
   AddAccountRepository,
-  CheckAccountByEmailRepository
+  CheckAccountByEmailRepository,
+  LoadAccountByEmailRepository
 } from '@/data/protocols'
 import { Account } from '@/domain/models'
 
@@ -25,6 +27,22 @@ export class AddAccountRepositorySpy implements AddAccountRepository {
     account: AddAccountRepository.Params
   ): Promise<AddAccountRepository.Result> {
     this.account = account
+    return this.result
+  }
+}
+
+export class LoadAccountByEmailRepositorySpy
+  implements LoadAccountByEmailRepository {
+  email: string
+  result = {
+    name: faker.name.findName(),
+    accessToken: faker.random.uuid()
+  }
+
+  async loadByEmail(
+    email: string
+  ): Promise<LoadAccountByEmailRepository.Result> {
+    this.email = email
     return this.result
   }
 }
