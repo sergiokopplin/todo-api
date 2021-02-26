@@ -7,5 +7,4 @@ app.listen(env.port, () => {
   )
 })
 
-// content-type
 // no-cache
