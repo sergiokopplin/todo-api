@@ -27,4 +27,11 @@ describe('DbAuthentication', () => {
     const promise = sut.auth(mockAddAccountParams())
     await expect(promise).rejects.toThrow()
   })
+
+  test('Should call LoadAccountByEmailRepositorySpy with correct email', async () => {
+    const { sut, loadAccountByEmailRepositorySpy } = makeSut()
+    const addAccountParams = mockAddAccountParams()
+    await sut.auth(addAccountParams)
+    expect(loadAccountByEmailRepositorySpy.email).toBe(addAccountParams.email)
+  })
 })
