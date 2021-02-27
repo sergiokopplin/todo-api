@@ -33,5 +33,11 @@ describe('JwtAdapter', () => {
         'secret'
       )
     })
+
+    test('Should return an id on success', async () => {
+      const { sut } = makeSut()
+      const result = await sut.sign('any_id')
+      expect(result).toBe('any_token')
+    })
   })
 })
