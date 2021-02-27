@@ -35,8 +35,9 @@ export class LoadAccountByEmailRepositorySpy
   implements LoadAccountByEmailRepository {
   email: string
   result = {
+    id: faker.random.uuid(),
     name: faker.name.findName(),
-    accessToken: faker.random.uuid()
+    password: faker.internet.password()
   }
 
   async loadByEmail(

@@ -57,4 +57,14 @@ describe('DbAuthentication', () => {
     const promise = sut.auth(mockAddAccountParams())
     await expect(promise).rejects.toThrow()
   })
+
+  test('Should call HashComparer with correct params', async () => {
+    const { sut, hashComparerSpy, loadAccountByEmailRepositorySpy } = makeSut()
+    const addAccountParams = mockAddAccountParams()
+    await sut.auth(addAccountParams)
+    expect(hashComparerSpy.digest).toBe(
+      loadAccountByEmailRepositorySpy.result.password
+    )
+    expect(hashComparerSpy.plaintext).toBe(addAccountParams.password)
+  })
 })
