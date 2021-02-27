@@ -27,7 +27,7 @@ describe('BcryptAdapter', () => {
       expect(hashSpy).toHaveBeenCalledWith(password, salt)
     })
 
-    test('Should return correctly', async () => {
+    test('Should return an id on success', async () => {
       const { sut } = makeSut()
       const uuid = faker.random.uuid()
       const password = faker.internet.password()
@@ -47,6 +47,17 @@ describe('BcryptAdapter', () => {
       const compareSpy = jest.spyOn(bcrypt, 'compare')
       await sut.compare(password, otherPassword)
       expect(compareSpy).toHaveBeenCalledWith(password, otherPassword)
+    })
+
+    test('Should return false when invalid', async () => {
+      const { sut } = makeSut()
+      const password = faker.internet.password()
+      const otherPassword = faker.internet.password()
+      jest
+        .spyOn(bcrypt, 'compare')
+        .mockImplementationOnce(async () => await Promise.resolve(false))
+      const result = await sut.compare(password, otherPassword)
+      expect(result).toBe(false)
     })
   })
 })
