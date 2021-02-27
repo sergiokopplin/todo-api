@@ -2,7 +2,8 @@ import { DbAuthentication } from '@/data/usecases'
 import {
   LoadAccountByEmailRepositorySpy,
   HashComparerSpy,
-  EncrypterSpy
+  EncrypterSpy,
+  UpdateAccessTokenRepositorySpy
 } from '@/tests/data/mocks'
 import { mockAddAccountParams } from '@/tests/domain/mocks'
 import { throwError } from '@/tests/presentation/mocks'
@@ -12,23 +13,27 @@ interface SutTypes {
   loadAccountByEmailRepositorySpy: LoadAccountByEmailRepositorySpy
   hashComparerSpy: HashComparerSpy
   encrypterSpy: EncrypterSpy
+  updateAccessTokenRepositorySpy: UpdateAccessTokenRepositorySpy
 }
 
 const makeSut = (): SutTypes => {
   const loadAccountByEmailRepositorySpy = new LoadAccountByEmailRepositorySpy()
   const hashComparerSpy = new HashComparerSpy()
   const encrypterSpy = new EncrypterSpy()
+  const updateAccessTokenRepositorySpy = new UpdateAccessTokenRepositorySpy()
   const sut = new DbAuthentication(
     loadAccountByEmailRepositorySpy,
     hashComparerSpy,
-    encrypterSpy
+    encrypterSpy,
+    updateAccessTokenRepositorySpy
   )
 
   return {
     sut,
     loadAccountByEmailRepositorySpy,
     hashComparerSpy,
-    encrypterSpy
+    encrypterSpy,
+    updateAccessTokenRepositorySpy
   }
 }
 
@@ -92,5 +97,29 @@ describe('DbAuthentication', () => {
     const addAccountParams = mockAddAccountParams()
     await sut.auth(addAccountParams)
     expect(encrypterSpy.plaintext).toBe(addAccountParams.password)
+  })
+
+  test('Should throw if UpdateAccessTokenRepository throws', async () => {
+    const { sut, updateAccessTokenRepositorySpy } = makeSut()
+    jest
+      .spyOn(updateAccessTokenRepositorySpy, 'updateAccessToken')
+      .mockImplementationOnce(throwError)
+    const promise = sut.auth(mockAddAccountParams())
+    await expect(promise).rejects.toThrow()
+  })
+
+  test('Should call UpdateAccessTokenRepository with correct params', async () => {
+    const {
+      sut,
+      updateAccessTokenRepositorySpy,
+      loadAccountByEmailRepositorySpy,
+      encrypterSpy
+    } = makeSut()
+    const addAccountParams = mockAddAccountParams()
+    await sut.auth(addAccountParams)
+    expect(updateAccessTokenRepositorySpy.id).toBe(
+      loadAccountByEmailRepositorySpy.result.id
+    )
+    expect(updateAccessTokenRepositorySpy.token).toBe(encrypterSpy.result)
   })
 })
