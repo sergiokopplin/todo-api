@@ -122,4 +122,17 @@ describe('DbAuthentication', () => {
     )
     expect(updateAccessTokenRepositorySpy.token).toBe(encrypterSpy.result)
   })
+
+  test('Should return correctly when ok', async () => {
+    const {
+      sut,
+      updateAccessTokenRepositorySpy,
+      loadAccountByEmailRepositorySpy
+    } = makeSut()
+    const result = await sut.auth(mockAddAccountParams())
+    expect(result).toEqual({
+      accessToken: updateAccessTokenRepositorySpy.token,
+      name: loadAccountByEmailRepositorySpy.result.name
+    })
+  })
 })

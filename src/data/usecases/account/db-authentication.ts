@@ -30,6 +30,10 @@ export class DbAuthentication implements Authentication {
           account.id,
           accessToken
         )
+        return {
+          accessToken,
+          name: account.name
+        }
       }
     }
     return null
