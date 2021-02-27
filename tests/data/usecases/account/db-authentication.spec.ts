@@ -1,20 +1,29 @@
 import { DbAuthentication } from '@/data/usecases'
-import { LoadAccountByEmailRepositorySpy } from '@/tests/data/mocks'
+import {
+  LoadAccountByEmailRepositorySpy,
+  HashComparerSpy
+} from '@/tests/data/mocks'
 import { mockAddAccountParams } from '@/tests/domain/mocks'
 import { throwError } from '@/tests/presentation/mocks'
 
 interface SutTypes {
   sut: DbAuthentication
   loadAccountByEmailRepositorySpy: LoadAccountByEmailRepositorySpy
+  hashComparerSpy: HashComparerSpy
 }
 
 const makeSut = (): SutTypes => {
   const loadAccountByEmailRepositorySpy = new LoadAccountByEmailRepositorySpy()
-  const sut = new DbAuthentication(loadAccountByEmailRepositorySpy)
+  const hashComparerSpy = new HashComparerSpy()
+  const sut = new DbAuthentication(
+    loadAccountByEmailRepositorySpy,
+    hashComparerSpy
+  )
 
   return {
     sut,
-    loadAccountByEmailRepositorySpy
+    loadAccountByEmailRepositorySpy,
+    hashComparerSpy
   }
 }
 
@@ -35,10 +44,17 @@ describe('DbAuthentication', () => {
     expect(loadAccountByEmailRepositorySpy.email).toBe(addAccountParams.email)
   })
 
-  test('Should return null is account not exists', async () => {
+  test('Should return null if account not exists', async () => {
     const { sut, loadAccountByEmailRepositorySpy } = makeSut()
     loadAccountByEmailRepositorySpy.result = null
     const response = await sut.auth(mockAddAccountParams())
     expect(response).toBe(null)
+  })
+
+  test('Should throw if HashComparer throws', async () => {
+    const { sut, hashComparerSpy } = makeSut()
+    jest.spyOn(hashComparerSpy, 'compare').mockImplementationOnce(throwError)
+    const promise = sut.auth(mockAddAccountParams())
+    await expect(promise).rejects.toThrow()
   })
 })
