@@ -67,4 +67,11 @@ describe('DbAuthentication', () => {
     )
     expect(hashComparerSpy.plaintext).toBe(addAccountParams.password)
   })
+
+  test('Should return null if comparison not valid', async () => {
+    const { sut, hashComparerSpy } = makeSut()
+    hashComparerSpy.result = false
+    const response = await sut.auth(mockAddAccountParams())
+    expect(response).toBe(null)
+  })
 })
