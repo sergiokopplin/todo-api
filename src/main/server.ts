@@ -6,5 +6,3 @@ app.listen(env.port, () => {
     `⚡️ [server]: Server is running at https://localhost:${env.port}`
   )
 })
-
-// no-cache
