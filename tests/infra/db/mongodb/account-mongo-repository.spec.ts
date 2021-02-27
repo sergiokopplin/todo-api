@@ -40,4 +40,16 @@ describe('AccountMongoRepository', () => {
       expect(result).toBe(true)
     })
   })
+
+  describe('loadByEmail()', () => {
+    test('Should return name and accessToken on success', async () => {
+      const account = mockAddAccountParams()
+      const sut = makeSut()
+      await accountCollection.insertOne({ ...account })
+      const result = await sut.loadByEmail(account.email)
+      expect(result.id).toBeTruthy()
+      expect(result.name).toBe(account.name)
+      expect(result.password).toBe(account.password)
+    })
+  })
 })
