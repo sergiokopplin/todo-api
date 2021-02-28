@@ -12,7 +12,7 @@
       "@/*": ["*"]
     }
   },
-  "include": ["src", "tests"],
+  "include": ["src/**/*", "tests/**/*"],
   "exclude": [],
   "ignorePatterns": [".eslintrc.js"]
 }
