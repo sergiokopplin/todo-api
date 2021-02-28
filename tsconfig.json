@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES2019",
+    "outDir": "dist",
     "module": "commonjs",
+    "target": "es2019",
+    "esModuleInterop": true,
+    "sourceMap": true,
     "rootDirs": ["src", "tests"],
     "baseUrl": "src",
     "paths": {
       "@/tests/*": ["../tests/*"],
       "@/*": ["*"]
-    },
-    "outDir": "./build",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  }
+    }
+  },
+  "include": ["src", "tests"],
+  "exclude": []
 }

@@ -8,4 +8,4 @@ const app = express()
 middlewaresConfig(app)
 routesConfig(app)
 
-export { app }
+export default app
