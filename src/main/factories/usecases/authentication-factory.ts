@@ -3,7 +3,7 @@ import { DbAuthentication } from '@/data/usecases'
 import { BcryptAdapter, JwtAdapter } from '@/infra/criptography'
 import { AccountMongoRepository } from '@/infra/db'
 
-export const makeAuthentication = (): DbAuthentication => {
+export const makeDbAuthentication = (): DbAuthentication => {
   const accountMongoRepository = new AccountMongoRepository()
   const salt = 12
   const bcryptAdapter = new BcryptAdapter(salt)

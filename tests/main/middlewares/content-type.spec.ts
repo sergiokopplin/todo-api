@@ -1,6 +1,6 @@
 import request from 'supertest'
 
-import { app } from '@/main/config'
+import app from '@/main/config/app'
 
 describe('ContentType Middleware', () => {
   test('Should enable json', async () => {
