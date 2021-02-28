@@ -1,2 +1,3 @@
 [![Coverage Status](https://coveralls.io/repos/github/sergiokopplin/todo-mvc-api/badge.svg?branch=master)](https://coveralls.io/github/sergiokopplin/todo-mvc-api?branch=master)
 [![Build Status](https://www.travis-ci.com/sergiokopplin/todo-mvc-api.svg?branch=master)](https://www.travis-ci.com/sergiokopplin/todo-mvc-api)
+[![Known Vulnerabilities](https://snyk.io/test/github/sergiokopplin/todo-mvc-api/badge.svg)](https://snyk.io/test/github/sergiokopplin/todo-mvc-api)
