@@ -26,12 +26,12 @@ describe('Account Routes', () => {
       res.send(req.body)
     })
 
-    const password = faker.internet.password()
+    const validPassword = 'aS1!sQ2!'
     const account = {
       name: faker.name.findName(),
       email: faker.internet.email(),
-      password,
-      passwordConfirmation: password
+      password: validPassword,
+      passwordConfirmation: validPassword
     }
 
     await request(app).post('/api/signup').send(account).expect(200)

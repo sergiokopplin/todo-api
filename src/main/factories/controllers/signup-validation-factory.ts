@@ -1,10 +1,14 @@
-import { EmailValidatorAdapter } from '@/infra/validators'
+import {
+  EmailValidatorAdapter,
+  PasswordStrengthValidatorAdapter
+} from '@/infra/validators'
 import { Validation } from '@/presentation/protocols'
 import {
   CompareFieldsValidator,
   EmailValidator,
   RequiredFieldValidator,
-  ValidationComposite
+  ValidationComposite,
+  PasswordStrengthValidator
 } from '@/validation/validators'
 
 export const makeSignupValidation = (): ValidationComposite => {
@@ -16,5 +20,11 @@ export const makeSignupValidation = (): ValidationComposite => {
     new CompareFieldsValidator('password', 'passwordConfirmation')
   )
   validations.push(new EmailValidator('email', new EmailValidatorAdapter()))
+  validations.push(
+    new PasswordStrengthValidator(
+      'password',
+      new PasswordStrengthValidatorAdapter()
+    )
+  )
   return new ValidationComposite(validations)
 }
