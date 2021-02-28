@@ -72,6 +72,6 @@
     "node": "12.x"
   },
   "_moduleAliases": {
-    "@": "dist"
+    "@": "src"
   }
 }
