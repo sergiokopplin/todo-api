@@ -25,7 +25,7 @@ export class AccountMongoRepository
   ): Promise<CheckAccountByEmailRepository.Result> {
     const collection = await MongoHelper.getCollection('accounts')
     const result = await collection.findOne({ email })
-    return result.ops !== null
+    return result !== null
   }
 
   async loadByEmail(
