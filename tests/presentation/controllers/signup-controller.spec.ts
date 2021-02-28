@@ -9,7 +9,8 @@ import {
 import {
   ServerError,
   EmailInUseError,
-  InvalidParamError
+  InvalidParamError,
+  MissingParamError
 } from '@/presentation/errors'
 import {
   badRequestError,
@@ -67,6 +68,13 @@ describe('SignUp Controller', () => {
     const request = mockRequest()
     await sut.handle(request)
     expect(validateSpy).toHaveBeenCalledWith(request)
+  })
+
+  test('Should return 400 if Validation returns an error', async () => {
+    const { sut, validationSpy } = makeSut()
+    validationSpy.error = new MissingParamError(faker.random.word())
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(badRequestError(validationSpy.error))
   })
 
   test('Should throw if AddAccount throws', async () => {
