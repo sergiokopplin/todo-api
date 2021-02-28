@@ -1,2 +1,2 @@
 [![Coverage Status](https://coveralls.io/repos/github/sergiokopplin/todo-mvc-api/badge.svg?branch=master)](https://coveralls.io/github/sergiokopplin/todo-mvc-api?branch=master)
-[![Build Status](https://www.travis-ci.com/sergiokopplin/clean-ts-api-v2.svg?branch=master)](https://www.travis-ci.com/sergiokopplin/clean-ts-api-v2)
+[![Build Status](https://www.travis-ci.com/sergiokopplin/todo-mvc-api.svg?branch=master)](https://www.travis-ci.com/sergiokopplin/todo-mvc-api)
