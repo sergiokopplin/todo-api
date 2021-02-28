@@ -9,7 +9,7 @@ module.exports = {
     '@/tests/(.*)': '<rootDir>/tests/$1',
     '@/(.*)': '<rootDir>/src/$1'
   },
-  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts', '!<rootDir>/src/main/**/*.ts'],
   coverageDirectory: 'coverage',
   coverageProvider: 'babel',
   watchPathIgnorePatterns: ['globalConfig']
