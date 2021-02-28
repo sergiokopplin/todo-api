@@ -8,10 +8,14 @@
   },
   "license": "GPL-3.0-or-later",
   "scripts": {
+    "start": "node dist/main/server.js",
+    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
+    "build": "rimraf dist && tsc -p tsconfig-build.json",
+    "build:watch": "rimraf dist && tsc -p tsconfig-build.json -w",
+    "up": "npm run build && docker-compose up -d",
+    "down": "docker-compose down",
     "check": "npm-check -s -u",
-    "build": "tsc --project ./",
     "test": "jest --passWithNoTests --runInBand --no-cache --watch",
-    "dev": "nodemon src/main/server.ts",
     "test:ci": "jest --coverage"
   },
   "devDependencies": {
@@ -42,7 +46,6 @@
     "git-commit-msg-linter": "^3.0.0",
     "husky": "^5.1.1",
     "jest": "^26.6.3",
-    "nodemon": "^2.0.7",
     "npm-check": "^5.9.2",
     "prettier": "^2.2.1",
     "supertest": "^6.1.3",
@@ -60,9 +63,13 @@
     "jsonwebtoken": "^8.5.1",
     "module-alias": "^2.2.2",
     "mongodb": "^3.6.4",
+    "nodemon": "^2.0.7",
     "validator": "^13.5.2"
   },
+  "engines": {
+    "node": "12.x"
+  },
   "_moduleAliases": {
-    "@": "src"
+    "@": "dist"
   }
 }
