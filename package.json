@@ -2,6 +2,11 @@
   "name": "todo-mvc-api-v2",
   "author": "Sergio Kopplin <sergiokopplin@gmail.com>",
   "version": "1.0.0",
+  "description": "A simple node API project",
+  "repository": {
+    "url": "https://github.com/sergiokopplin/clean-ts-api-v2"
+  },
+  "license": "GPL-3.0-or-later",
   "scripts": {
     "check": "npm-check -s -u",
     "build": "tsc --project ./",
