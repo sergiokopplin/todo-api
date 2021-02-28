@@ -42,7 +42,7 @@ export class AccountMongoRepository
         }
       }
     )
-    return MongoHelper.mapId(result)
+    return result && MongoHelper.mapId(result)
   }
 
   async updateAccessToken(id: string, token: string): Promise<void> {
