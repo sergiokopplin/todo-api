@@ -21,11 +21,11 @@ interface SutTypes {
 }
 
 describe('JwtAdapter', () => {
-  describe('sign()', () => {
+  describe('encrypt()', () => {
     test('Should call jwt with correct params', async () => {
       const { sut } = makeSut()
       const hashSpy = jest.spyOn(jwt, 'sign')
-      await sut.sign('any_id')
+      await sut.encrypt('any_id')
       expect(hashSpy).toHaveBeenCalledWith(
         {
           id: 'any_id'
@@ -36,7 +36,7 @@ describe('JwtAdapter', () => {
 
     test('Should return an id on success', async () => {
       const { sut } = makeSut()
-      const result = await sut.sign('any_id')
+      const result = await sut.encrypt('any_id')
       expect(result).toBe('any_token')
     })
   })
