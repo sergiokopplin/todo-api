@@ -10,7 +10,7 @@
   "scripts": {
     "check": "npm-check -s -u",
     "build": "tsc --project ./",
-    "dev": "nodemon --config nodemon.json --inspect-brk src/main/server.ts",
+    "dev": "nodemon src/main/server.ts",
     "test": "jest --watch",
     "test:ci": "jest --coverage"
   },
