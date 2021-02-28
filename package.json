@@ -61,8 +61,7 @@
   },
   "lint-staged": {
     "*.ts": [
-      "eslint . --fix",
-      "npm run test:staged"
+      "eslint . --fix"
     ]
   },
   "dependencies": {
