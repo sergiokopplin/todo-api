@@ -1,6 +1,7 @@
 import request from 'supertest'
 import { Collection } from 'mongodb'
 import faker from 'faker'
+import { hash } from 'bcrypt'
 
 import { MongoHelper } from '@/infra/db'
 import app from '@/main/config/app'
@@ -53,6 +54,40 @@ describe('Account Routes', () => {
 
       await request(app).post('/api/signup').send(account)
       await request(app).post('/api/signup').send(account).expect(403)
+    })
+  })
+
+  describe('Login', () => {
+    test('Should return 200 on login', async () => {
+      const password = await hash('123', 12)
+      await accountCollection.insertOne({
+        name: 'Sergio',
+        email: 'sergio@gmail.com',
+        password
+      })
+      await request(app)
+        .post('/api/login')
+        .send({
+          email: 'sergio@gmail.com',
+          password: '123'
+        })
+        .expect(200)
+    })
+
+    test('Should return 401 when bad credentials', async () => {
+      const password = await hash('123', 12)
+      await accountCollection.insertOne({
+        name: 'Sergio',
+        email: 'sergio@gmail.com',
+        password
+      })
+      await request(app)
+        .post('/api/login')
+        .send({
+          email: 'sergio@gmail.com',
+          password: '321'
+        })
+        .expect(401)
     })
   })
 })

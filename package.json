@@ -78,7 +78,7 @@
     "node": "12.x"
   },
   "_moduleAliases": {
-    "@": "src"
+    "@": "dist"
   },
   "husky": {
     "hooks": {
