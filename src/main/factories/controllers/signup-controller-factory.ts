@@ -1,8 +1,8 @@
 import { SignUpController } from '@/presentation/controllers'
 import {
   makeSignupValidation,
-  makeDbAuthentication,
-  makeDbAddAccount
+  makeDbAddAccount,
+  makeDbAuthentication
 } from '@/main/factories'
 import { Controller } from '@/presentation/protocols'
 
