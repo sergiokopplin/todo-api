@@ -21,7 +21,7 @@ describe('Todo Routes', () => {
     await MongoHelper.disconnect()
   })
 
-  describe('Signup', () => {
+  describe('Add Todo', () => {
     test('Should return 200 on add-todo', async () => {
       app.post('/api/add-todo', (req, res) => {
         res.send(req.body)
@@ -31,6 +31,20 @@ describe('Todo Routes', () => {
         title: faker.random.words(3)
       }
 
+      await request(app).post('/api/add-todo').send(todo).expect(200)
+    })
+
+    test('Should return 200 when adds multiple todos in sequence', async () => {
+      app.post('/api/add-todo', (req, res) => {
+        res.send(req.body)
+      })
+
+      const todo = {
+        title: faker.random.words(3)
+      }
+
+      await request(app).post('/api/add-todo').send(todo).expect(200)
+      await request(app).post('/api/add-todo').send(todo).expect(200)
       await request(app).post('/api/add-todo').send(todo).expect(200)
     })
   })
