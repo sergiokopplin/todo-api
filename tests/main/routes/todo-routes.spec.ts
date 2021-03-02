@@ -48,4 +48,18 @@ describe('Todo Routes', () => {
       await request(app).post('/api/add-todo').send(todo).expect(200)
     })
   })
+
+  describe('Delete Todo', () => {
+    test('Should return 204 on delete-todo', async () => {
+      app.post('/api/delete-todo', (req, res) => {
+        res.send(req.body)
+      })
+
+      const todo = {
+        id: faker.random.uuid()
+      }
+
+      await request(app).post('/api/delete-todo').send(todo).expect(204)
+    })
+  })
 })
