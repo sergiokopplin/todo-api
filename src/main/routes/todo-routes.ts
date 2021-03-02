@@ -8,5 +8,5 @@ import { expressRouteAdapt } from '@/main/adapters'
 
 export const todoRoutes = (router: Router): void => {
   router.post('/todo', expressRouteAdapt(makeAddTodoController()))
-  router.post('/delete-todo', expressRouteAdapt(makeDeleteTodoController()))
+  router.delete('/todo', expressRouteAdapt(makeDeleteTodoController()))
 }

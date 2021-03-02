@@ -22,7 +22,7 @@ describe('Todo Routes', () => {
   })
 
   describe('Add Todo', () => {
-    test('Should return 200 on add todo', async () => {
+    test('Should return 200 on post todo', async () => {
       app.post('/api/todo', (req, res) => {
         res.send(req.body)
       })
@@ -50,8 +50,8 @@ describe('Todo Routes', () => {
   })
 
   describe('Delete Todo', () => {
-    test('Should return 204 on delete-todo', async () => {
-      app.post('/api/delete-todo', (req, res) => {
+    test('Should return 204 on delete todo', async () => {
+      app.delete('/api/todo', (req, res) => {
         res.send(req.body)
       })
 
@@ -59,7 +59,7 @@ describe('Todo Routes', () => {
         id: faker.random.uuid()
       }
 
-      await request(app).post('/api/delete-todo').send(todo).expect(204)
+      await request(app).delete('/api/todo').send(todo).expect(204)
     })
   })
 })
