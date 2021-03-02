@@ -7,6 +7,6 @@ import {
 import { expressRouteAdapt } from '@/main/adapters'
 
 export const todoRoutes = (router: Router): void => {
-  router.post('/add-todo', expressRouteAdapt(makeAddTodoController()))
+  router.post('/todo', expressRouteAdapt(makeAddTodoController()))
   router.post('/delete-todo', expressRouteAdapt(makeDeleteTodoController()))
 }
