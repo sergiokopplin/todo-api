@@ -1,6 +1,6 @@
 import { Express, Router } from 'express'
 
-import { accountRoutes } from '@/main/routes'
+import { accountRoutes, todosRoutes } from '@/main/routes'
 
 export const routesConfig = (app: Express): void => {
   const router = Router()
@@ -8,4 +8,5 @@ export const routesConfig = (app: Express): void => {
   app.use('/api', router)
 
   accountRoutes(router)
+  todosRoutes(router)
 }

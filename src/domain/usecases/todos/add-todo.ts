@@ -7,5 +7,9 @@ export namespace AddTodo {
     title: string
   }
 
-  export type Result = boolean
+  export interface Result {
+    id: string
+    title: string
+    completed: boolean
+  }
 }
