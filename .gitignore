@@ -3,4 +3,6 @@ node_modules/
 coverage/
 globalConfig.json
 dist/
-data/
+data
+!src/data
+!tests/data
