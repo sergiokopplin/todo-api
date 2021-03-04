@@ -1,5 +1,5 @@
 import { Controller, HttpResponse, Validation } from '@/presentation/protocols'
-import { badRequestError, serverError } from '@/presentation/helpers'
+import { badRequestError, serverError, noResult } from '@/presentation/helpers'
 import { DeleteTodo } from '@/domain/usecases'
 
 export class DeleteTodoController implements Controller {
@@ -15,6 +15,7 @@ export class DeleteTodoController implements Controller {
         return badRequestError(error)
       }
       await this.deleteTodo.delete(request)
+      return noResult()
     } catch (error) {
       return serverError(error)
     }

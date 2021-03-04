@@ -7,7 +7,7 @@ import {
   MissingParamError,
   ServerError
 } from '@/presentation/errors'
-import { badRequestError, serverError } from '@/presentation/helpers'
+import { badRequestError, noResult, serverError } from '@/presentation/helpers'
 
 const mockRequest = (): DeleteTodoController.Request => {
   return {
@@ -71,5 +71,12 @@ describe('Delete Todo Controller', () => {
     const request = mockRequest()
     await sut.handle(request)
     expect(deleteSpy).toHaveBeenCalledWith(request)
+  })
+
+  test('Should return 204 when ok', async () => {
+    const { sut } = makeSut()
+    const request = mockRequest()
+    const response = await sut.handle(request)
+    expect(response).toEqual(noResult())
   })
 })
