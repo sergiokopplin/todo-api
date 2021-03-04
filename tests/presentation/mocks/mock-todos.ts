@@ -1,6 +1,6 @@
 import faker from 'faker'
 
-import { AddTodo } from '@/domain/usecases'
+import { AddTodo, DeleteTodo } from '@/domain/usecases'
 
 export class AddTodoSpy implements AddTodo {
   params: AddTodo.Params
@@ -13,5 +13,13 @@ export class AddTodoSpy implements AddTodo {
   async add(params: AddTodo.Params): Promise<AddTodo.Result> {
     this.params = params
     return this.result
+  }
+}
+
+export class DeleteTodoSpy implements DeleteTodo {
+  todo: DeleteTodo.Params
+
+  async delete(todo: DeleteTodo.Params): Promise<void> {
+    this.todo = todo
   }
 }

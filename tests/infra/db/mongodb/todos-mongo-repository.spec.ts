@@ -30,4 +30,17 @@ describe('TodosMongoRepository', () => {
       expect(result.id).toBeTruthy()
     })
   })
+
+  describe('delete()', () => {
+    test('Should return 0 on count', async () => {
+      const sut = makeSut()
+      const todo = mockAddTodoParams()
+      const result = await todosCollection.insertOne({ todo })
+      let count = await todosCollection.countDocuments()
+      expect(count).toBe(1)
+      await sut.delete(result.ops[0]._id)
+      count = await todosCollection.countDocuments()
+      expect(count).toBe(0)
+    })
+  })
 })
