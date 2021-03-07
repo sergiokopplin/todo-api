@@ -1,6 +1,10 @@
 import faker from 'faker'
 
-import { AddTodoRepository, DeleteTodoRepository } from '@/data/protocols'
+import {
+  AddTodoRepository,
+  DeleteTodoRepository,
+  UpdateTodoRepository
+} from '@/data/protocols'
 
 export class AddTodoRepositorySpy implements AddTodoRepository {
   title: string
@@ -21,5 +25,26 @@ export class DeleteTodoRepositorySpy implements DeleteTodoRepository {
 
   async delete(id: string): Promise<void> {
     this.id = id
+  }
+}
+
+export class UpdateTodoRepositorySpy implements UpdateTodoRepository {
+  params = {
+    id: faker.random.uuid(),
+    title: faker.random.words(3),
+    completed: false
+  }
+
+  result = {
+    id: faker.random.uuid(),
+    title: faker.random.words(3),
+    completed: false
+  }
+
+  async update(
+    params: UpdateTodoRepository.Params
+  ): Promise<UpdateTodoRepository.Result> {
+    this.params = params
+    return this.result
   }
 }

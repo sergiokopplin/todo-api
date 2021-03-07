@@ -25,6 +25,11 @@ describe('RequiredFieldValidator', () => {
     )
   })
 
+  test('Should not return an error if value is boolean false', () => {
+    const { sut } = makeSut()
+    expect(sut.validate({ email: false })).toBeFalsy()
+  })
+
   test('Should return empty if validation is ok', () => {
     const { sut } = makeSut()
     expect(sut.validate({ email: field })).toBeFalsy()
