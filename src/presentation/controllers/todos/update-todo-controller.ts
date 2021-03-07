@@ -1,5 +1,5 @@
 import { Controller, HttpResponse, Validation } from '@/presentation/protocols'
-import { badRequestError, serverError } from '@/presentation/helpers'
+import { badRequestError, ok, serverError } from '@/presentation/helpers'
 import { UpdateTodo } from '@/domain/usecases'
 
 export class UpdateTodoController implements Controller {
@@ -14,7 +14,8 @@ export class UpdateTodoController implements Controller {
       if (error) {
         return badRequestError(error)
       }
-      await this.updateTodo.update(request)
+      const result = await this.updateTodo.update(request)
+      return ok(result)
     } catch (error) {
       return serverError(error)
     }
