@@ -43,4 +43,22 @@ describe('TodosMongoRepository', () => {
       expect(count).toBe(0)
     })
   })
+
+  describe('update()', () => {
+    test('Should return an updated account', async () => {
+      const sut = makeSut()
+      const todo = mockAddTodoParams()
+      const result = await todosCollection.insertOne(todo)
+      const updateResult = await sut.update({
+        id: result.ops[0]._id,
+        completed: true,
+        title: 'new title'
+      })
+      expect(updateResult).toEqual({
+        id: result.ops[0]._id,
+        completed: true,
+        title: 'new title'
+      })
+    })
+  })
 })

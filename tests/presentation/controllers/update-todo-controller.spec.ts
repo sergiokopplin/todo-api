@@ -1,9 +1,13 @@
 import faker from 'faker'
 
 import { UpdateTodoController } from '@/presentation/controllers'
-import { ValidationSpy } from '@/tests/presentation/mocks'
-import { InvalidParamError, MissingParamError } from '@/presentation/errors'
-import { badRequestError } from '@/presentation/helpers'
+import { ValidationSpy, UpdateTodoSpy } from '@/tests/presentation/mocks'
+import {
+  InvalidParamError,
+  MissingParamError,
+  ServerError
+} from '@/presentation/errors'
+import { badRequestError, serverError } from '@/presentation/helpers'
 
 const mockRequest = (): UpdateTodoController.Request => {
   return {
@@ -16,15 +20,18 @@ const mockRequest = (): UpdateTodoController.Request => {
 interface SutTypes {
   sut: UpdateTodoController
   validationSpy: ValidationSpy
+  updateTodoSpy: UpdateTodoSpy
 }
 
 const makeSut = (): SutTypes => {
   const validationSpy = new ValidationSpy()
-  const sut = new UpdateTodoController(validationSpy)
+  const updateTodoSpy = new UpdateTodoSpy()
+  const sut = new UpdateTodoController(validationSpy, updateTodoSpy)
 
   return {
     sut,
-    validationSpy
+    validationSpy,
+    updateTodoSpy
   }
 }
 
@@ -49,5 +56,22 @@ describe('Add Todo Controller', () => {
     validationSpy.error = new MissingParamError(faker.random.word())
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(badRequestError(validationSpy.error))
+  })
+
+  test('Should throw if UpdateTodo throws', async () => {
+    const { sut, updateTodoSpy } = makeSut()
+    jest.spyOn(updateTodoSpy, 'update').mockImplementationOnce(async () => {
+      return await Promise.reject(new ServerError(null))
+    })
+    const response = await sut.handle(mockRequest())
+    expect(response).toEqual(serverError(new ServerError(null)))
+  })
+
+  test('Should call UpdateTodo with correct params', async () => {
+    const { sut, updateTodoSpy } = makeSut()
+    const addSpy = jest.spyOn(updateTodoSpy, 'update')
+    const request = mockRequest()
+    await sut.handle(request)
+    expect(addSpy).toHaveBeenCalledWith(request)
   })
 })
