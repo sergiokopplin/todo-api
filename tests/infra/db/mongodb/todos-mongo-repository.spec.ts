@@ -45,7 +45,7 @@ describe('TodosMongoRepository', () => {
   })
 
   describe('update()', () => {
-    test('Should return an updated account', async () => {
+    test('Should return an updated todo', async () => {
       const sut = makeSut()
       const todo = mockAddTodoParams()
       const result = await todosCollection.insertOne(todo)
@@ -59,6 +59,32 @@ describe('TodosMongoRepository', () => {
         completed: true,
         title: 'new title'
       })
+    })
+  })
+
+  describe('loadAll()', () => {
+    test('Should return all todos', async () => {
+      const sut = makeSut()
+      await todosCollection.insertOne({
+        title: 'first title',
+        completed: true
+      })
+      await todosCollection.insertOne({
+        title: 'second title',
+        completed: false
+      })
+      const loadAllResult = await sut.loadAll()
+      const count = await todosCollection.countDocuments()
+      expect(count).toBe(2)
+      expect(loadAllResult.length).toBe(2)
+    })
+
+    test('Should return empty todos', async () => {
+      const sut = makeSut()
+      const loadAllResult = await sut.loadAll()
+      const count = await todosCollection.countDocuments()
+      expect(count).toBe(0)
+      expect(loadAllResult.length).toBe(0)
     })
   })
 })

@@ -3,6 +3,7 @@ import faker from 'faker'
 import {
   AddTodoRepository,
   DeleteTodoRepository,
+  LoadTodosRepository,
   UpdateTodoRepository
 } from '@/data/protocols'
 
@@ -45,6 +46,20 @@ export class UpdateTodoRepositorySpy implements UpdateTodoRepository {
     params: UpdateTodoRepository.Params
   ): Promise<UpdateTodoRepository.Result> {
     this.params = params
+    return this.result
+  }
+}
+
+export class LoadTodosRepositorySpy implements LoadTodosRepository {
+  result = [
+    {
+      id: faker.random.uuid(),
+      title: faker.random.words(3),
+      completed: false
+    }
+  ]
+
+  async loadAll(): Promise<LoadTodosRepository.Result[]> {
     return this.result
   }
 }

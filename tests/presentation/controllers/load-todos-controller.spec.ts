@@ -1,6 +1,6 @@
 import { LoadTodosController } from '@/presentation/controllers'
 import { ServerError } from '@/presentation/errors'
-import { serverError } from '@/presentation/helpers'
+import { ok, serverError } from '@/presentation/helpers'
 import { LoadTodosSpy } from '@/tests/presentation/mocks'
 
 interface SutTypes {
@@ -33,5 +33,11 @@ describe('Load Todos Controller', () => {
     const loadAllSpy = jest.spyOn(loadTodosSpy, 'loadAll')
     await sut.handle()
     expect(loadAllSpy).toHaveBeenLastCalledWith()
+  })
+
+  test('Should return 200 if ok', async () => {
+    const { sut, loadTodosSpy } = makeSut()
+    const response = await sut.handle()
+    expect(response).toEqual(ok(loadTodosSpy.result))
   })
 })
