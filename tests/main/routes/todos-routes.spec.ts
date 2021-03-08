@@ -72,5 +72,18 @@ describe('Todos Routes', () => {
         await request(app).put('/api/todos').send(todoRequest).expect(200)
       })
     })
+
+    describe('loadAll', () => {
+      test('Should return 200 on load', async () => {
+        const todo = mockAddTodoParams()
+        await todosCollection.insertOne(todo)
+
+        app.get('/api/todos', (req, res) => {
+          res.send(req.body)
+        })
+
+        await request(app).get('/api/todos').send().expect(200)
+      })
+    })
   })
 })

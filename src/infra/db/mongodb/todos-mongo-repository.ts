@@ -3,11 +3,16 @@ import { MongoHelper } from '@/infra/db'
 import {
   AddTodoRepository,
   DeleteTodoRepository,
-  UpdateTodoRepository
+  UpdateTodoRepository,
+  LoadTodosRepository
 } from '@/data/protocols'
 
 export class TodosMongoRepository
-  implements AddTodoRepository, DeleteTodoRepository, UpdateTodoRepository {
+  implements
+    AddTodoRepository,
+    DeleteTodoRepository,
+    UpdateTodoRepository,
+    LoadTodosRepository {
   async add(title: string): Promise<AddTodoRepository.Result> {
     const collection = await MongoHelper.getCollection('todos')
     const result = await collection.insertOne({ title, completed: false })
@@ -34,5 +39,12 @@ export class TodosMongoRepository
       { returnOriginal: false }
     )
     return MongoHelper.mapId(result.value)
+  }
+
+  async loadAll(): Promise<LoadTodosRepository.Result[]> {
+    const collection = await MongoHelper.getCollection('todos')
+    const result = collection.find()
+    const list = await result.toArray()
+    return list.map(item => MongoHelper.mapId(item))
   }
 }
