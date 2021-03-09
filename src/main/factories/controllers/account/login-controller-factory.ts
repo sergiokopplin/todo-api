@@ -1,7 +1,15 @@
 import { LoginController } from '@/presentation/controllers'
-import { makeLoginValidation, makeDbAuthentication } from '@/main/factories'
+import {
+  makeLoginValidation,
+  makeDbAuthentication,
+  makeLogControllerDecorator
+} from '@/main/factories'
 import { Controller } from '@/presentation/protocols'
 
 export const makeLoginController = (): Controller => {
-  return new LoginController(makeLoginValidation(), makeDbAuthentication())
+  const controller = new LoginController(
+    makeLoginValidation(),
+    makeDbAuthentication()
+  )
+  return makeLogControllerDecorator(controller)
 }

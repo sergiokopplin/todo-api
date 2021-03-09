@@ -1,10 +1,15 @@
 import { UpdateTodoController } from '@/presentation/controllers'
-import { makeUpdateTodoValidation, makeDbUpdateTodo } from '@/main/factories'
+import {
+  makeUpdateTodoValidation,
+  makeDbUpdateTodo,
+  makeLogControllerDecorator
+} from '@/main/factories'
 import { Controller } from '@/presentation/protocols'
 
 export const makeUpdateTodoController = (): Controller => {
-  return new UpdateTodoController(
+  const controller = new UpdateTodoController(
     makeUpdateTodoValidation(),
     makeDbUpdateTodo()
   )
+  return makeLogControllerDecorator(controller)
 }
