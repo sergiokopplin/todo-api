@@ -1,11 +1,15 @@
 import { DeleteTodoController } from '@/presentation/controllers'
-import { makeDeleteTodoValidation } from '@/main/factories'
+import {
+  makeDeleteTodoValidation,
+  makeDbDeleteTodo,
+  makeLogControllerDecorator
+} from '@/main/factories'
 import { Controller } from '@/presentation/protocols'
-import { makeDbDeleteTodo } from '../../usecases/todos/delete-todo-factory'
 
 export const makeDeleteTodoController = (): Controller => {
-  return new DeleteTodoController(
+  const controller = new DeleteTodoController(
     makeDeleteTodoValidation(),
     makeDbDeleteTodo()
   )
+  return makeLogControllerDecorator(controller)
 }
