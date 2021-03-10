@@ -53,6 +53,19 @@ describe('Todos Routes', () => {
       })
     })
 
+    describe('delete completed', () => {
+      test('Should return 204 on delete', async () => {
+        const todo = mockAddTodoParams()
+        await todosCollection.insertOne(todo)
+
+        app.delete(`/api/todos-completed`, (_req, res) => {
+          res.send()
+        })
+
+        await request(app).delete(`/api/todos-completed`).send().expect(204)
+      })
+    })
+
     describe('update', () => {
       test('Should return 200 on update', async () => {
         const todo = mockAddTodoParams()
