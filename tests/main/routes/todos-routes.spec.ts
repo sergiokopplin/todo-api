@@ -42,15 +42,14 @@ describe('Todos Routes', () => {
         const todo = mockAddTodoParams()
         const result = await todosCollection.insertOne(todo)
 
-        app.delete('/api/todos', (req, res) => {
-          res.send(req.body)
+        app.delete(`/api/todos/${result.insertedId}`, (_req, res) => {
+          res.send()
         })
 
-        const todoRequest = {
-          id: result.ops[0]._id
-        }
-
-        await request(app).delete('/api/todos').send(todoRequest).expect(204)
+        await request(app)
+          .delete(`/api/todos/${result.insertedId}`)
+          .send()
+          .expect(204)
       })
     })
 
@@ -89,13 +88,16 @@ describe('Todos Routes', () => {
     describe('load', () => {
       test('Should return 200 on load', async () => {
         const todo = mockAddTodoParams()
-        await todosCollection.insertOne(todo)
+        const result = await todosCollection.insertOne(todo)
 
-        app.get('/api/todos', (req, res) => {
-          res.send(req.body)
+        app.get(`/api/todos/${result.insertedId}`, (_req, res) => {
+          res.send()
         })
 
-        await request(app).get('/api/todos').send().expect(200)
+        await request(app)
+          .get(`/api/todos/${result.insertedId}`)
+          .send()
+          .expect(200)
       })
     })
   })
