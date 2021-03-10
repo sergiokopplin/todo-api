@@ -17,6 +17,7 @@
     "import/export": 0,
     "@typescript-eslint/no-namespace": 0,
     "@typescript-eslint/strict-boolean-expressions": 0,
-    "@typescript-eslint/no-misused-promises": 0
+    "@typescript-eslint/no-misused-promises": 0,
+    "@typescript-eslint/restrict-template-expressions": 0
   }
 }
