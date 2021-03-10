@@ -54,7 +54,7 @@ export class TodosMongoRepository
     const collection = await MongoHelper.getCollection('todos')
     const result = collection.find()
     const list = await result.toArray()
-    return list.map(item => MongoHelper.mapId(item))
+    return result && list.map(item => MongoHelper.mapId(item))
   }
 
   async load(
