@@ -44,6 +44,29 @@ describe('TodosMongoRepository', () => {
     })
   })
 
+  describe('deleteCompleted()', () => {
+    test('Should return 1 on count', async () => {
+      const sut = makeSut()
+      await todosCollection.insertOne({
+        ...mockAddTodoParams(),
+        completed: true
+      })
+      await todosCollection.insertOne({
+        ...mockAddTodoParams(),
+        completed: false
+      })
+      await todosCollection.insertOne({
+        ...mockAddTodoParams(),
+        completed: true
+      })
+      let count = await todosCollection.countDocuments()
+      expect(count).toBe(3)
+      await sut.deleteCompleted()
+      count = await todosCollection.countDocuments()
+      expect(count).toBe(1)
+    })
+  })
+
   describe('update()', () => {
     test('Should return an updated todo', async () => {
       const sut = makeSut()
