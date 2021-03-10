@@ -24,7 +24,7 @@ describe('Todos Routes', () => {
 
   describe('Todos', () => {
     describe('add', () => {
-      test('Should return 200 on add', async () => {
+      test('Should return 201 on add', async () => {
         app.post('/api/todos', (req, res) => {
           res.send(req.body)
         })
@@ -33,7 +33,7 @@ describe('Todos Routes', () => {
           title: faker.random.words(3)
         }
 
-        await request(app).post('/api/todos').send(todo).expect(200)
+        await request(app).post('/api/todos').send(todo).expect(201)
       })
     })
 
