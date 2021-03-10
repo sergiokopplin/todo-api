@@ -75,6 +75,13 @@ describe('Load Todo Controller', () => {
     })
   })
 
+  test('Should return null if no results', async () => {
+    const { sut, loadTodoSpy } = makeSut()
+    loadTodoSpy.result = null
+    const response = await sut.handle(mockRequest())
+    expect(response).toEqual(ok(loadTodoSpy.result))
+  })
+
   test('Should return 200 if ok', async () => {
     const { sut, loadTodoSpy } = makeSut()
     const response = await sut.handle(mockRequest())

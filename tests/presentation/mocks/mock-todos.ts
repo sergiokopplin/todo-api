@@ -1,6 +1,12 @@
 import faker from 'faker'
 
-import { AddTodo, DeleteTodo, UpdateTodo, LoadTodos } from '@/domain/usecases'
+import {
+  AddTodo,
+  DeleteTodo,
+  UpdateTodo,
+  LoadTodos,
+  LoadTodo
+} from '@/domain/usecases'
 
 export class AddTodoSpy implements AddTodo {
   params: AddTodo.Params

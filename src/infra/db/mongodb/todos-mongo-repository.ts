@@ -55,6 +55,6 @@ export class TodosMongoRepository
   ): Promise<LoadTodoRepository.Result> {
     const collection = await MongoHelper.getCollection('todos')
     const result = await collection.findOne({ _id: new ObjectId(todo.id) })
-    return MongoHelper.mapId(result)
+    return result && MongoHelper.mapId(result)
   }
 }

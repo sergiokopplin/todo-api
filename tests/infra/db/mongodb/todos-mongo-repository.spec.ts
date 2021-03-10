@@ -102,5 +102,11 @@ describe('TodosMongoRepository', () => {
         completed: true
       })
     })
+
+    test('Should return an empty todo when no results', async () => {
+      const sut = makeSut()
+      const loadAllResult = await sut.load({ id: '6048177f57568d02bfca0f0f' })
+      expect(loadAllResult).toEqual(null)
+    })
   })
 })
