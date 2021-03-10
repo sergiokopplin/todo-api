@@ -1,4 +1,4 @@
-import { AddTodo, DeleteTodo, UpdateTodo } from '@/domain/usecases'
+import { AddTodo, DeleteTodo, UpdateTodo, LoadTodo } from '@/domain/usecases'
 
 import faker from 'faker'
 
@@ -13,5 +13,9 @@ export const mockDeleteTodoParams = (): DeleteTodo.Params => ({
 export const mockUpdateTodoParams = (): UpdateTodo.Params => ({
   title: faker.random.words(3),
   completed: false,
+  id: faker.random.uuid()
+})
+
+export const mockLoadTodoParams = (): LoadTodo.Param => ({
   id: faker.random.uuid()
 })

@@ -1,6 +1,12 @@
 import faker from 'faker'
 
-import { AddTodo, DeleteTodo, UpdateTodo, LoadTodos } from '@/domain/usecases'
+import {
+  AddTodo,
+  DeleteTodo,
+  UpdateTodo,
+  LoadTodos,
+  LoadTodo
+} from '@/domain/usecases'
 
 export class AddTodoSpy implements AddTodo {
   params: AddTodo.Params
@@ -48,6 +54,18 @@ export class LoadTodosSpy implements LoadTodos {
   ]
 
   async loadAll(): Promise<LoadTodos.Result> {
+    return this.result
+  }
+}
+
+export class LoadTodoSpy implements LoadTodo {
+  result = {
+    id: faker.random.uuid(),
+    title: faker.random.words(3),
+    completed: false
+  }
+
+  async load(): Promise<LoadTodo.Result> {
     return this.result
   }
 }
