@@ -28,6 +28,10 @@ export class DeleteTodoRepositorySpy implements DeleteTodoRepository {
   async delete(id: string): Promise<void> {
     this.id = id
   }
+
+  async deleteCompleted(): Promise<void> {
+    return null
+  }
 }
 
 export class UpdateTodoRepositorySpy implements UpdateTodoRepository {

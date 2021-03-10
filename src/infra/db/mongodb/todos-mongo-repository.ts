@@ -26,6 +26,13 @@ export class TodosMongoRepository
     await collection.deleteOne({ _id: new ObjectId(id) })
   }
 
+  async deleteCompleted(): Promise<void> {
+    const collection = await MongoHelper.getCollection('todos')
+    await collection.deleteMany({
+      completed: true
+    })
+  }
+
   async update(
     todo: UpdateTodoRepository.Params
   ): Promise<UpdateTodoRepository.Result> {

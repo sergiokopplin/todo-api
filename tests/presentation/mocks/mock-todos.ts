@@ -3,6 +3,7 @@ import faker from 'faker'
 import {
   AddTodo,
   DeleteTodo,
+  DeleteCompletedTodos,
   UpdateTodo,
   LoadTodos,
   LoadTodo
@@ -27,6 +28,14 @@ export class DeleteTodoSpy implements DeleteTodo {
 
   async delete(todo: DeleteTodo.Params): Promise<void> {
     this.todo = todo
+  }
+}
+
+export class DeleteCompletedTodosSpy implements DeleteCompletedTodos {
+  result = null
+
+  async delete(): Promise<void> {
+    return this.result
   }
 }
 
