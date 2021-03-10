@@ -4,7 +4,8 @@ import {
   AddTodoRepository,
   DeleteTodoRepository,
   LoadTodosRepository,
-  UpdateTodoRepository
+  UpdateTodoRepository,
+  LoadTodoRepository
 } from '@/data/protocols'
 
 export class AddTodoRepositorySpy implements AddTodoRepository {
@@ -60,6 +61,22 @@ export class LoadTodosRepositorySpy implements LoadTodosRepository {
   ]
 
   async loadAll(): Promise<LoadTodosRepository.Result[]> {
+    return this.result
+  }
+}
+
+export class LoadTodoRepositorySpy implements LoadTodoRepository {
+  id = faker.random.uuid()
+  result = {
+    id: faker.random.uuid(),
+    title: faker.random.words(3),
+    completed: false
+  }
+
+  async load(
+    todo: LoadTodoRepository.Param
+  ): Promise<LoadTodoRepository.Result> {
+    this.id = todo.id
     return this.result
   }
 }

@@ -1,9 +1,13 @@
 import { Todo } from '@/domain/models'
 
 export interface LoadTodo {
-  load: (id: string) => Promise<LoadTodo.Result>
+  load: (todo: LoadTodo.Param) => Promise<LoadTodo.Result>
 }
 
 export namespace LoadTodo {
+  export interface Param {
+    id: string
+  }
+
   export type Result = Todo
 }
