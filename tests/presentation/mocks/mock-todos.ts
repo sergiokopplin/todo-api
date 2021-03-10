@@ -51,3 +51,15 @@ export class LoadTodosSpy implements LoadTodos {
     return this.result
   }
 }
+
+export class LoadTodoSpy implements LoadTodo {
+  result = {
+    id: faker.random.uuid(),
+    title: faker.random.words(3),
+    completed: false
+  }
+
+  async load(): Promise<LoadTodo.Result> {
+    return this.result
+  }
+}
