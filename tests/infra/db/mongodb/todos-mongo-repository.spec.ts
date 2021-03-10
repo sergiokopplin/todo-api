@@ -87,4 +87,20 @@ describe('TodosMongoRepository', () => {
       expect(loadAllResult.length).toBe(0)
     })
   })
+
+  describe('load()', () => {
+    test('Should return a todo', async () => {
+      const sut = makeSut()
+      const result = await todosCollection.insertOne({
+        title: 'first title',
+        completed: true
+      })
+      const loadAllResult = await sut.load({ id: result.insertedId })
+      expect(loadAllResult).toEqual({
+        id: result.insertedId,
+        title: 'first title',
+        completed: true
+      })
+    })
+  })
 })
