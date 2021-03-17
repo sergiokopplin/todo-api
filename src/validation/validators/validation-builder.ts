@@ -1,0 +1,45 @@
+import { Validation } from '@/presentation/protocols'
+import {
+  RequiredFieldValidator,
+  EmailValidator,
+  MinLengthValidator,
+  CompareFieldsValidator
+} from '@/validation/validators'
+import { EmailValidation } from '../protocols'
+
+export class ValidationBuilder {
+  private constructor(
+    private readonly fieldName: string,
+    private readonly validations: Validation[]
+  ) {}
+
+  static field(fieldName: string): ValidationBuilder {
+    return new ValidationBuilder(fieldName, [])
+  }
+
+  required(): ValidationBuilder {
+    this.validations.push(new RequiredFieldValidator(this.fieldName))
+    return this
+  }
+
+  email(validatorAdapter: EmailValidation): ValidationBuilder {
+    this.validations.push(new EmailValidator(this.fieldName, validatorAdapter))
+    return this
+  }
+
+  min(length: number): ValidationBuilder {
+    this.validations.push(new MinLengthValidator(this.fieldName, length))
+    return this
+  }
+
+  sameAs(fieldToCompare: string): ValidationBuilder {
+    this.validations.push(
+      new CompareFieldsValidator(this.fieldName, fieldToCompare)
+    )
+    return this
+  }
+
+  build(): Validation[] {
+    return this.validations
+  }
+}
