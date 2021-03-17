@@ -1,10 +1,16 @@
-import { EmailValidatorAdapter } from '@/infra/validators'
+import {
+  EmailValidatorAdapter,
+  ObjectIdValidatorAdapter,
+  PasswordStrengthValidatorAdapter
+} from '@/infra/validators'
 import {
   ValidationBuilder as sut,
   RequiredFieldValidator,
   EmailValidator,
   MinLengthValidator,
-  CompareFieldsValidator
+  CompareFieldsValidator,
+  ObjectIdValidator,
+  PasswordStrengthValidator
 } from '@/validation/validators'
 
 import faker from 'faker'
@@ -50,21 +56,58 @@ describe('ValidationBuilder', () => {
     ])
   })
 
+  test('Should return ObjectIdValidator', () => {
+    const field = faker.database.column()
+    const validations = sut
+      .field(field)
+      .objectId(new ObjectIdValidatorAdapter())
+      .build()
+
+    expect(validations).toEqual([
+      new ObjectIdValidator(field, new ObjectIdValidatorAdapter())
+    ])
+  })
+
+  test('Should return PasswordStrengthValidator', () => {
+    const field = faker.database.column()
+    const validations = sut
+      .field(field)
+      .password(new PasswordStrengthValidatorAdapter())
+      .build()
+
+    expect(validations).toEqual([
+      new PasswordStrengthValidator(
+        field,
+        new PasswordStrengthValidatorAdapter()
+      )
+    ])
+  })
+
   test('Should return a list of validations', () => {
     const field = faker.database.column()
     const length = faker.random.number()
+    const fieldToCompare = faker.database.column()
 
     const validations = sut
       .field(field)
       .required()
       .min(length)
+      .sameAs(fieldToCompare)
       .email(new EmailValidatorAdapter())
+      .objectId(new ObjectIdValidatorAdapter())
+      .password(new PasswordStrengthValidatorAdapter())
       .build()
 
     expect(validations).toEqual([
       new RequiredFieldValidator(field),
       new MinLengthValidator(field, length),
-      new EmailValidator(field, new EmailValidatorAdapter())
+      new CompareFieldsValidator(field, fieldToCompare),
+      new EmailValidator(field, new EmailValidatorAdapter()),
+      new ObjectIdValidator(field, new ObjectIdValidatorAdapter()),
+      new PasswordStrengthValidator(
+        field,
+        new PasswordStrengthValidatorAdapter()
+      )
     ])
   })
 })

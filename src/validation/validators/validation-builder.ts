@@ -5,7 +5,13 @@ import {
   MinLengthValidator,
   CompareFieldsValidator
 } from '@/validation/validators'
-import { EmailValidation } from '../protocols'
+import {
+  EmailValidation,
+  ObjectIdValidation,
+  PasswordStrengthValidation
+} from '@/validation/protocols'
+import { ObjectIdValidator } from './object-id-validator'
+import { PasswordStrengthValidator } from './password-strength-validator'
 
 export class ValidationBuilder {
   private constructor(
@@ -35,6 +41,20 @@ export class ValidationBuilder {
   sameAs(fieldToCompare: string): ValidationBuilder {
     this.validations.push(
       new CompareFieldsValidator(this.fieldName, fieldToCompare)
+    )
+    return this
+  }
+
+  objectId(validatorAdapter: ObjectIdValidation): ValidationBuilder {
+    this.validations.push(
+      new ObjectIdValidator(this.fieldName, validatorAdapter)
+    )
+    return this
+  }
+
+  password(validatorAdapter: PasswordStrengthValidation): ValidationBuilder {
+    this.validations.push(
+      new PasswordStrengthValidator(this.fieldName, validatorAdapter)
     )
     return this
   }
