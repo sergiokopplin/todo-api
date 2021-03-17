@@ -1,16 +1,10 @@
 import { ObjectIdValidatorAdapter } from '@/infra/validators'
-import { Validation } from '@/presentation/protocols'
-import {
-  ObjectIdValidator,
-  RequiredFieldValidator,
-  ValidationComposite
-} from '@/validation/validators'
+import { ValidationBuilder, ValidationComposite } from '@/validation/validators'
 
-export const makeLoadTodoValidation = (): ValidationComposite => {
-  const validations: Validation[] = []
-  for (const field of ['id']) {
-    validations.push(new RequiredFieldValidator(field))
-  }
-  validations.push(new ObjectIdValidator('id', new ObjectIdValidatorAdapter()))
-  return new ValidationComposite(validations)
-}
+export const makeLoadTodoValidation = (): ValidationComposite =>
+  ValidationComposite.build([
+    ...ValidationBuilder.field('id')
+      .required()
+      .objectId(new ObjectIdValidatorAdapter())
+      .build()
+  ])
