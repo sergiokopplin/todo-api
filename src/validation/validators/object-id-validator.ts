@@ -9,8 +9,10 @@ export class ObjectIdValidator implements Validation {
   ) {}
 
   validate(input: any): Error {
-    if (!this.objectIdValidation.validate(input[this.field])) {
-      return new InvalidParamError('id')
+    if (input[this.field]) {
+      if (!this.objectIdValidation.validate(input[this.field])) {
+        return new InvalidParamError('id')
+      }
     }
   }
 }

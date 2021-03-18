@@ -9,8 +9,10 @@ export class PasswordStrengthValidator implements Validation {
   ) {}
 
   validate(input: any): Error {
-    if (!this.passwordStrengthValidation.validate(input[this.field])) {
-      return new PasswordStrengthError()
+    if (input[this.field]) {
+      if (!this.passwordStrengthValidation.validate(input[this.field])) {
+        return new PasswordStrengthError()
+      }
     }
   }
 }

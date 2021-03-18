@@ -32,4 +32,9 @@ describe('EmailValidator', () => {
     const { sut } = makeSut()
     expect(sut.validate({ email: faker.internet.email() })).toBeFalsy()
   })
+
+  test('Should return empty validation if optional', () => {
+    const { sut } = makeSut()
+    expect(sut.validate({})).toBeFalsy()
+  })
 })

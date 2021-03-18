@@ -29,4 +29,9 @@ describe('RequiredFieldValidator', () => {
     const { sut } = makeSut()
     expect(sut.validate({ field: field, fieldToCompare: field })).toBeFalsy()
   })
+
+  test('Should return empty validation if optional', () => {
+    const { sut } = makeSut()
+    expect(sut.validate({})).toBeFalsy()
+  })
 })

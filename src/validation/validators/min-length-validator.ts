@@ -8,8 +8,10 @@ export class MinLengthValidator implements Validation {
   ) {}
 
   validate(input: any): Error {
-    if (input[this.field].length < this.minLength) {
-      return new InvalidParamError(this.field)
+    if (input[this.field]) {
+      if (input[this.field].length < this.minLength) {
+        return new InvalidParamError(this.field)
+      }
     }
   }
 }

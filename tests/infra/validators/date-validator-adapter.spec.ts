@@ -26,12 +26,6 @@ describe('DateValidatorAdapter', () => {
     expect(result).toBe(true)
   })
 
-  test('Should return true if no date passed', () => {
-    const sut = makeSut()
-    const result = sut.validate(new Date())
-    expect(result).toBe(true)
-  })
-
   test('Should call validator with correct date', () => {
     const sut = makeSut()
     const isISO8601Spy = jest.spyOn(validator, 'isISO8601')
