@@ -1,5 +1,6 @@
 import faker from 'faker'
 
+import { Todo } from '@/domain/models'
 import {
   AddTodoRepository,
   DeleteTodoRepository,
@@ -8,15 +9,24 @@ import {
   LoadTodoRepository
 } from '@/data/protocols'
 
-export class AddTodoRepositorySpy implements AddTodoRepository {
-  title: string
-  result = {
-    id: faker.random.uuid(),
-    title: faker.random.words(3),
-    completed: false
-  }
+const mockTodo: Todo = {
+  id: faker.random.uuid(),
+  title: faker.random.words(3),
+  completed: false,
+  dueDate: new Date(),
+  theme: 'blank'
+}
 
-  async add(title: string): Promise<AddTodoRepository.Result> {
+export class AddTodoRepositorySpy implements AddTodoRepository {
+  dueDate: Date
+  title: string
+  result = mockTodo
+
+  async add({
+    dueDate,
+    title
+  }: AddTodoRepository.Params): Promise<AddTodoRepository.Result> {
+    this.dueDate = dueDate
     this.title = title
     return this.result
   }
@@ -41,11 +51,7 @@ export class UpdateTodoRepositorySpy implements UpdateTodoRepository {
     completed: false
   }
 
-  result = {
-    id: faker.random.uuid(),
-    title: faker.random.words(3),
-    completed: false
-  }
+  result = mockTodo
 
   async update(
     params: UpdateTodoRepository.Params
@@ -56,13 +62,7 @@ export class UpdateTodoRepositorySpy implements UpdateTodoRepository {
 }
 
 export class LoadTodosRepositorySpy implements LoadTodosRepository {
-  result = [
-    {
-      id: faker.random.uuid(),
-      title: faker.random.words(3),
-      completed: false
-    }
-  ]
+  result = [mockTodo]
 
   async loadAll(): Promise<LoadTodosRepository.Result[]> {
     return this.result
@@ -71,11 +71,7 @@ export class LoadTodosRepositorySpy implements LoadTodosRepository {
 
 export class LoadTodoRepositorySpy implements LoadTodoRepository {
   id = faker.random.uuid()
-  result = {
-    id: faker.random.uuid(),
-    title: faker.random.words(3),
-    completed: false
-  }
+  result = mockTodo
 
   async load(
     todo: LoadTodoRepository.Param

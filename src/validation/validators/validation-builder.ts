@@ -3,15 +3,17 @@ import {
   RequiredFieldValidator,
   EmailValidator,
   MinLengthValidator,
-  CompareFieldsValidator
+  CompareFieldsValidator,
+  ObjectIdValidator,
+  PasswordStrengthValidator,
+  DateValidator
 } from '@/validation/validators'
 import {
   EmailValidation,
   ObjectIdValidation,
-  PasswordStrengthValidation
+  PasswordStrengthValidation,
+  DateValidation
 } from '@/validation/protocols'
-import { ObjectIdValidator } from './object-id-validator'
-import { PasswordStrengthValidator } from './password-strength-validator'
 
 export class ValidationBuilder {
   private constructor(
@@ -56,6 +58,11 @@ export class ValidationBuilder {
     this.validations.push(
       new PasswordStrengthValidator(this.fieldName, validatorAdapter)
     )
+    return this
+  }
+
+  date(validatorAdapter: DateValidation): ValidationBuilder {
+    this.validations.push(new DateValidator(this.fieldName, validatorAdapter))
     return this
   }
 

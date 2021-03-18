@@ -1,4 +1,5 @@
 import {
+  DateValidatorAdapter,
   EmailValidatorAdapter,
   ObjectIdValidatorAdapter,
   PasswordStrengthValidatorAdapter
@@ -10,7 +11,8 @@ import {
   MinLengthValidator,
   CompareFieldsValidator,
   ObjectIdValidator,
-  PasswordStrengthValidator
+  PasswordStrengthValidator,
+  DateValidator
 } from '@/validation/validators'
 
 import faker from 'faker'
@@ -83,6 +85,18 @@ describe('ValidationBuilder', () => {
     ])
   })
 
+  test('Should return DateValidator', () => {
+    const field = faker.database.column()
+    const validations = sut
+      .field(field)
+      .date(new DateValidatorAdapter())
+      .build()
+
+    expect(validations).toEqual([
+      new DateValidator(field, new DateValidatorAdapter())
+    ])
+  })
+
   test('Should return a list of validations', () => {
     const field = faker.database.column()
     const length = faker.random.number()
@@ -96,6 +110,7 @@ describe('ValidationBuilder', () => {
       .email(new EmailValidatorAdapter())
       .objectId(new ObjectIdValidatorAdapter())
       .password(new PasswordStrengthValidatorAdapter())
+      .date(new DateValidatorAdapter())
       .build()
 
     expect(validations).toEqual([
@@ -107,7 +122,8 @@ describe('ValidationBuilder', () => {
       new PasswordStrengthValidator(
         field,
         new PasswordStrengthValidatorAdapter()
-      )
+      ),
+      new DateValidator(field, new DateValidatorAdapter())
     ])
   })
 })

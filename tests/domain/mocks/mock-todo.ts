@@ -1,21 +1,26 @@
+import { Todo } from '@/domain/models'
+
 import { AddTodo, DeleteTodo, UpdateTodo, LoadTodo } from '@/domain/usecases'
 
 import faker from 'faker'
 
-export const mockAddTodoParams = (): AddTodo.Params => ({
-  title: faker.random.words(3)
-})
-
-export const mockDeleteTodoParams = (): DeleteTodo.Params => ({
-  id: faker.random.uuid()
-})
-
-export const mockUpdateTodoParams = (): UpdateTodo.Params => ({
+const mockTodo: Todo = {
   title: faker.random.words(3),
   completed: false,
-  id: faker.random.uuid()
-})
+  id: faker.random.uuid(),
+  dueDate: new Date('2021-03-17T23:18:04.822Z'),
+  theme: 'blank'
+}
 
-export const mockLoadTodoParams = (): LoadTodo.Param => ({
-  id: faker.random.uuid()
+const { title, completed, id, dueDate, theme } = mockTodo
+
+export const mockAddTodoParams = (): AddTodo.Params => ({ title, dueDate })
+export const mockDeleteTodoParams = (): DeleteTodo.Params => ({ id })
+export const mockLoadTodoParams = (): LoadTodo.Param => ({ id })
+export const mockUpdateTodoParams = (): UpdateTodo.Params => ({
+  title,
+  completed,
+  id,
+  dueDate,
+  theme
 })

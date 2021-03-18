@@ -15,9 +15,14 @@ export class TodosMongoRepository
     UpdateTodoRepository,
     LoadTodosRepository,
     LoadTodoRepository {
-  async add(title: string): Promise<AddTodoRepository.Result> {
+  async add(todo: AddTodoRepository.Params): Promise<AddTodoRepository.Result> {
     const collection = await MongoHelper.getCollection('todos')
-    const result = await collection.insertOne({ title, completed: false })
+    const result = await collection.insertOne({
+      completed: false,
+      title: todo.title,
+      dueDate: todo.dueDate,
+      theme: 'blank'
+    })
     return MongoHelper.mapId(result.ops[0])
   }
 
@@ -37,14 +42,15 @@ export class TodosMongoRepository
     todo: UpdateTodoRepository.Params
   ): Promise<UpdateTodoRepository.Result> {
     const collection = await MongoHelper.getCollection('todos')
-    const result = await collection.findOneAndUpdate(
+    const params = {}
+    for (const prop in todo) {
+      if (todo[prop]) {
+        params[prop] = todo[prop]
+      }
+    }
+    const result = await collection.findOneAndReplace(
       { _id: new ObjectId(todo.id) },
-      {
-        $set: {
-          completed: todo.completed,
-          title: todo.title
-        }
-      },
+      params,
       { returnOriginal: false }
     )
     return MongoHelper.mapId(result.value)

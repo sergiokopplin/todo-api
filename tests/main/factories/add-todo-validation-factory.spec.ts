@@ -1,8 +1,10 @@
+import { DateValidatorAdapter } from '@/infra/validators'
 import { makeAddTodoValidation } from '@/main/factories'
 import {
   ValidationComposite,
   RequiredFieldValidator,
-  MinLengthValidator
+  MinLengthValidator,
+  DateValidator
 } from '@/validation/validators'
 
 describe('AddTodoValidation Factory', () => {
@@ -12,7 +14,8 @@ describe('AddTodoValidation Factory', () => {
     expect(composite).toEqual(
       ValidationComposite.build([
         new RequiredFieldValidator('title'),
-        new MinLengthValidator('title', 3)
+        new MinLengthValidator('title', 3),
+        new DateValidator('dueDate', new DateValidatorAdapter())
       ])
     )
   })

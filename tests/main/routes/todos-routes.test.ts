@@ -30,7 +30,8 @@ describe('Todos Routes', () => {
         })
 
         const todo = {
-          title: faker.random.words(3)
+          title: faker.random.words(3),
+          dueDate: new Date()
         }
 
         await request(app).post('/api/todos').send(todo).expect(201)
