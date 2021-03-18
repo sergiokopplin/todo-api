@@ -8,14 +8,19 @@ import {
   LoadTodos,
   LoadTodo
 } from '@/domain/usecases'
+import { Todo } from '@/domain/models'
+
+const mockTodo = (): Todo => ({
+  id: faker.random.uuid(),
+  title: faker.random.words(3),
+  completed: false,
+  dueDate: new Date(),
+  theme: 'blank'
+})
 
 export class AddTodoSpy implements AddTodo {
   params: AddTodo.Params
-  result = {
-    id: faker.random.uuid(),
-    title: faker.random.words(3),
-    completed: false
-  }
+  result = mockTodo()
 
   async add(params: AddTodo.Params): Promise<AddTodo.Result> {
     this.params = params
@@ -41,11 +46,7 @@ export class DeleteCompletedTodosSpy implements DeleteCompletedTodos {
 
 export class UpdateTodoSpy implements UpdateTodo {
   todo: UpdateTodo.Params
-  result = {
-    id: faker.random.uuid(),
-    title: faker.random.words(3),
-    completed: false
-  }
+  result = mockTodo()
 
   async update(todo: UpdateTodo.Params): Promise<UpdateTodo.Result> {
     this.todo = todo
@@ -54,13 +55,7 @@ export class UpdateTodoSpy implements UpdateTodo {
 }
 
 export class LoadTodosSpy implements LoadTodos {
-  result = [
-    {
-      id: faker.random.uuid(),
-      title: faker.random.words(3),
-      completed: false
-    }
-  ]
+  result = [mockTodo()]
 
   async loadAll(): Promise<LoadTodos.Result> {
     return this.result
@@ -68,11 +63,7 @@ export class LoadTodosSpy implements LoadTodos {
 }
 
 export class LoadTodoSpy implements LoadTodo {
-  result = {
-    id: faker.random.uuid(),
-    title: faker.random.words(3),
-    completed: false
-  }
+  result = mockTodo()
 
   async load(): Promise<LoadTodo.Result> {
     return this.result

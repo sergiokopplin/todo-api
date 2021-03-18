@@ -26,11 +26,12 @@ describe('DbAddTodo', () => {
     await expect(promise).rejects.toThrow()
   })
 
-  test('Should call AddTodoRepositorySpy with correct email', async () => {
+  test('Should call AddTodoRepositorySpy with correct params', async () => {
     const { sut, addTodoRepositorySpy } = makeSut()
     const addAccountParams = mockAddTodoParams()
     await sut.add(addAccountParams)
     expect(addTodoRepositorySpy.title).toBe(addAccountParams.title)
+    expect(addTodoRepositorySpy.dueDate).toBe(addAccountParams.dueDate)
   })
 
   test('Should return an todo if it succeeds', async () => {

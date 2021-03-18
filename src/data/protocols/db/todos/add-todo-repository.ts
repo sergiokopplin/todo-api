@@ -1,11 +1,14 @@
+import { Todo } from '@/domain/models'
+
 export interface AddTodoRepository {
-  add: (title: string) => Promise<AddTodoRepository.Result>
+  add: (todo: AddTodoRepository.Params) => Promise<AddTodoRepository.Result>
 }
 
 export namespace AddTodoRepository {
-  export interface Result {
-    id: string
+  export type Result = Todo
+
+  export interface Params {
     title: string
-    completed: boolean
+    dueDate: Date
   }
 }

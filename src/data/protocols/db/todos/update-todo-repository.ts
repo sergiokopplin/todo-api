@@ -1,3 +1,5 @@
+import { Todo } from '@/domain/models'
+
 export interface UpdateTodoRepository {
   update: (
     todo: UpdateTodoRepository.Params
@@ -5,15 +7,6 @@ export interface UpdateTodoRepository {
 }
 
 export namespace UpdateTodoRepository {
-  export interface Params {
-    id: string
-    title: string
-    completed: boolean
-  }
-
-  export interface Result {
-    id: string
-    title: string
-    completed: boolean
-  }
+  export type Params = Todo
+  export type Result = Todo
 }

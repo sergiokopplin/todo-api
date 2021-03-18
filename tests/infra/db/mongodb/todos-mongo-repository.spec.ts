@@ -26,7 +26,7 @@ describe('TodosMongoRepository', () => {
   describe('add()', () => {
     test('Should return true on success', async () => {
       const sut = makeSut()
-      const result = await sut.add(mockAddTodoParams().title)
+      const result = await sut.add(mockAddTodoParams())
       expect(result.id).toBeTruthy()
     })
   })
@@ -75,12 +75,16 @@ describe('TodosMongoRepository', () => {
       const updateResult = await sut.update({
         id: result.ops[0]._id,
         completed: true,
-        title: 'new title'
+        title: 'new title',
+        dueDate: new Date('2021-03-17T23:18:04.822Z'),
+        theme: 'blank'
       })
       expect(updateResult).toEqual({
         id: result.ops[0]._id,
         completed: true,
-        title: 'new title'
+        title: 'new title',
+        dueDate: new Date('2021-03-17T23:18:04.822Z'),
+        theme: 'blank'
       })
     })
   })

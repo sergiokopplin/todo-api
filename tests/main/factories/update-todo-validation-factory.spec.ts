@@ -1,10 +1,14 @@
-import { ObjectIdValidatorAdapter } from '@/infra/validators'
+import {
+  DateValidatorAdapter,
+  ObjectIdValidatorAdapter
+} from '@/infra/validators'
 import { makeUpdateTodoValidation } from '@/main/factories'
 import {
   ValidationComposite,
   RequiredFieldValidator,
   ObjectIdValidator,
-  MinLengthValidator
+  MinLengthValidator,
+  DateValidator
 } from '@/validation/validators'
 
 describe('UpdateTodoValidation Factory', () => {
@@ -16,7 +20,8 @@ describe('UpdateTodoValidation Factory', () => {
         new ObjectIdValidator('id', new ObjectIdValidatorAdapter()),
         new RequiredFieldValidator('title'),
         new MinLengthValidator('title', 3),
-        new RequiredFieldValidator('completed')
+        new RequiredFieldValidator('completed'),
+        new DateValidator('dueDate', new DateValidatorAdapter())
       ])
     )
   })
