@@ -44,6 +44,7 @@ export class TodosMongoRepository
     const collection = await MongoHelper.getCollection('todos')
     const params = {}
     for (const prop in todo) {
+      /* istanbul ignore next */
       if (todo[prop]) {
         params[prop] = todo[prop]
       }
