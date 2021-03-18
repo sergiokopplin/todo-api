@@ -35,4 +35,9 @@ describe('PasswordStrengthValidator', () => {
     const { sut } = makeSut()
     expect(sut.validate({ password: faker.internet.password() })).toBeFalsy()
   })
+
+  test('Should return empty validation if optional', () => {
+    const { sut } = makeSut()
+    expect(sut.validate({})).toBeFalsy()
+  })
 })

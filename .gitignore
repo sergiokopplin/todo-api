@@ -6,3 +6,4 @@ dist/
 data
 !src/data
 !tests/data
+.DS_Store

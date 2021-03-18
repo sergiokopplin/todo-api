@@ -30,4 +30,9 @@ describe('DateValidator', () => {
     const { sut } = makeSut()
     expect(sut.validate({ date: 'valid_date' })).toBeFalsy()
   })
+
+  test('Should return empty if value optional', () => {
+    const { sut } = makeSut()
+    expect(sut.validate({})).toBeFalsy()
+  })
 })

@@ -9,8 +9,10 @@ export class DateValidator implements Validation {
   ) {}
 
   validate(input: any): Error {
-    if (!this.dateValidation.validate(input[this.field])) {
-      return new InvalidParamError(this.field)
+    if (input[this.field]) {
+      if (!this.dateValidation.validate(input[this.field])) {
+        return new InvalidParamError(this.field)
+      }
     }
   }
 }
