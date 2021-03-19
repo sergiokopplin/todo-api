@@ -1,6 +1,6 @@
 import faker from 'faker'
 
-import { Hasher, HashComparer, Encrypter } from '@/data/protocols'
+import { Hasher, HashComparer, Encrypter, Decrypter } from '@/data/protocols'
 
 export class HasherSpy implements Hasher {
   result = faker.random.uuid()
@@ -31,5 +31,15 @@ export class EncrypterSpy implements Encrypter {
   async encrypt(plaintext: string): Promise<string> {
     this.plaintext = plaintext
     return this.result
+  }
+}
+
+export class DecrypterSpy implements Decrypter {
+  plaintext = faker.internet.password()
+  ciphertext: string
+
+  async decrypt(ciphertext: string): Promise<string> {
+    this.ciphertext = ciphertext
+    return this.plaintext
   }
 }
