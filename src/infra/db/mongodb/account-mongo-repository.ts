@@ -3,6 +3,7 @@ import {
   AddAccountRepository,
   CheckAccountByEmailRepository,
   LoadAccountByEmailRepository,
+  LoadAccountByTokenRepository,
   UpdateAccessTokenRepository
 } from '@/data/protocols'
 
@@ -11,7 +12,8 @@ export class AccountMongoRepository
     AddAccountRepository,
     CheckAccountByEmailRepository,
     LoadAccountByEmailRepository,
-    UpdateAccessTokenRepository {
+    UpdateAccessTokenRepository,
+    LoadAccountByTokenRepository {
   async add(
     account: AddAccountRepository.Params
   ): Promise<AddAccountRepository.Result> {
@@ -57,5 +59,31 @@ export class AccountMongoRepository
         }
       }
     )
+  }
+
+  async loadByToken(
+    token: string,
+    role?: string
+  ): Promise<LoadAccountByTokenRepository.Result> {
+    const accountCollection = await MongoHelper.getCollection('accounts')
+    const account = await accountCollection.findOne(
+      {
+        accessToken: token,
+        $or: [
+          {
+            role
+          },
+          {
+            role: 'admin'
+          }
+        ]
+      },
+      {
+        projection: {
+          _id: 1
+        }
+      }
+    )
+    return account && MongoHelper.mapId(account)
   }
 }
