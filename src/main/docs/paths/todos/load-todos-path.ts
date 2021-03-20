@@ -1,22 +1,12 @@
-export const addTodoPath = {
-  post: {
+export const loadTodosPath = {
+  get: {
     security: [
       {
         apiKeyAuth: []
       }
     ],
-    requestBody: {
-      required: true,
-      content: {
-        'application/json': {
-          schema: {
-            $ref: '#/schemas/addTodoParams'
-          }
-        }
-      }
-    },
     responses: {
-      201: {
+      200: {
         content: {
           'application/json': {
             schema: {

@@ -1,6 +1,11 @@
-import { addTodoPath, loadTodoPath } from './todos'
+import { addTodoPath, loadTodoPath, loadTodosPath } from './todos'
 
 export const todosPath = {
-  ...addTodoPath,
-  ...loadTodoPath
+  '/todos': {
+    ...addTodoPath,
+    ...loadTodosPath
+  },
+  '/todos/{id}': {
+    ...loadTodoPath
+  }
 }
