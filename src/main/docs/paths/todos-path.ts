@@ -3,6 +3,7 @@ import {
   loadTodoPath,
   loadTodosPath,
   updateTodoPath,
+  deleteTodoPath,
   deleteCompletedTodosPath
 } from './todos'
 
@@ -13,7 +14,8 @@ export const todosPath = {
     ...updateTodoPath
   },
   '/todos/{id}': {
-    ...loadTodoPath
+    ...loadTodoPath,
+    ...deleteTodoPath
   },
   '/todos-completed': {
     ...deleteCompletedTodosPath
