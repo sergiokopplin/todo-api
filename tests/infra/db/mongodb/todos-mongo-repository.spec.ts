@@ -24,10 +24,25 @@ describe('TodosMongoRepository', () => {
   })
 
   describe('add()', () => {
-    test('Should return true on success', async () => {
+    test('Should return an todo on success', async () => {
       const sut = makeSut()
-      const result = await sut.add(mockAddTodoParams())
+      const result = await sut.add({ title: mockAddTodoParams().title })
       expect(result.id).toBeTruthy()
+      expect(result.title).toBe(mockAddTodoParams().title)
+      expect(result.theme).toBe('blank')
+      expect(result.completed).toBe(false)
+    })
+
+    test('Should return correctly with optional params', async () => {
+      const sut = makeSut()
+      const result = await sut.add({
+        title: mockAddTodoParams().title,
+        dueDate: new Date('2021-03-17T23:18:04.822Z'),
+        theme: 'custom'
+      })
+      expect(result.id).toBeTruthy()
+      expect(result.theme).toBe('custom')
+      expect(result.dueDate).toEqual(new Date('2021-03-17T23:18:04.822Z'))
     })
   })
 

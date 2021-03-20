@@ -17,12 +17,17 @@ export class TodosMongoRepository
     LoadTodoRepository {
   async add(todo: AddTodoRepository.Params): Promise<AddTodoRepository.Result> {
     const collection = await MongoHelper.getCollection('todos')
-    const result = await collection.insertOne({
-      completed: false,
-      title: todo.title,
-      dueDate: todo.dueDate,
-      theme: 'blank'
-    })
+    const params = {
+      theme: todo?.theme || 'blank',
+      completed: false
+    }
+    for (const prop in todo) {
+      /* istanbul ignore next */
+      if (todo[prop] || typeof todo[prop] === 'boolean') {
+        params[prop] = todo[prop]
+      }
+    }
+    const result = await collection.insertOne(params)
     return MongoHelper.mapId(result.ops[0])
   }
 
@@ -42,10 +47,12 @@ export class TodosMongoRepository
     todo: UpdateTodoRepository.Params
   ): Promise<UpdateTodoRepository.Result> {
     const collection = await MongoHelper.getCollection('todos')
-    const params = {}
+    const params = {
+      theme: 'blank'
+    }
     for (const prop in todo) {
       /* istanbul ignore next */
-      if (todo[prop]) {
+      if (todo[prop] || typeof todo[prop] === 'boolean') {
         params[prop] = todo[prop]
       }
     }

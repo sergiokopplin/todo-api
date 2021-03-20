@@ -20,14 +20,17 @@ const mockTodo: Todo = {
 export class AddTodoRepositorySpy implements AddTodoRepository {
   dueDate: Date
   title: string
+  theme: string
   result = mockTodo
 
   async add({
     dueDate,
-    title
+    title,
+    theme
   }: AddTodoRepository.Params): Promise<AddTodoRepository.Result> {
     this.dueDate = dueDate
     this.title = title
+    this.theme = theme
     return this.result
   }
 }

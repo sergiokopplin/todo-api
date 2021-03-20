@@ -9,6 +9,7 @@ export namespace AddTodoRepository {
 
   export interface Params {
     title: string
-    dueDate: Date
+    dueDate?: Date
+    theme?: string
   }
 }

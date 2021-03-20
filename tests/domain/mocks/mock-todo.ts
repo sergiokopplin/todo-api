@@ -14,7 +14,11 @@ const mockTodo: Todo = {
 
 const { title, completed, id, dueDate, theme } = mockTodo
 
-export const mockAddTodoParams = (): AddTodo.Params => ({ title, dueDate })
+export const mockAddTodoParams = (): AddTodo.Params => ({
+  title,
+  dueDate,
+  theme
+})
 export const mockDeleteTodoParams = (): DeleteTodo.Params => ({ id })
 export const mockLoadTodoParams = (): LoadTodo.Param => ({ id })
 export const mockUpdateTodoParams = (): UpdateTodo.Params => ({

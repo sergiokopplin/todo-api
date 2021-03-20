@@ -25,5 +25,7 @@ export class AddTodoController implements Controller {
 export namespace AddTodoController {
   export interface Request {
     title: string
+    dueDate?: Date
+    theme?: Date
   }
 }
