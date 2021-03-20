@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb'
-import { MongoHelper } from '@/infra/db'
+import { MongoHelper, RepositoryHelper } from '@/infra/db'
 import {
   AddTodoRepository,
   DeleteTodoRepository,
@@ -17,17 +17,15 @@ export class TodosMongoRepository
     LoadTodoRepository {
   async add(todo: AddTodoRepository.Params): Promise<AddTodoRepository.Result> {
     const collection = await MongoHelper.getCollection('todos')
-    const params = {
-      theme: todo?.theme || 'blank',
-      completed: false
-    }
-    for (const prop in todo) {
-      /* istanbul ignore next */
-      if (todo[prop] || typeof todo[prop] === 'boolean') {
-        params[prop] = todo[prop]
-      }
-    }
-    const result = await collection.insertOne(params)
+    const result = await collection.insertOne(
+      RepositoryHelper.mapValidKeys(
+        {
+          theme: todo.theme || 'blank',
+          completed: false
+        },
+        todo
+      )
+    )
     return MongoHelper.mapId(result.ops[0])
   }
 
@@ -47,18 +45,14 @@ export class TodosMongoRepository
     todo: UpdateTodoRepository.Params
   ): Promise<UpdateTodoRepository.Result> {
     const collection = await MongoHelper.getCollection('todos')
-    const params = {
-      theme: 'blank'
-    }
-    for (const prop in todo) {
-      /* istanbul ignore next */
-      if (todo[prop] || typeof todo[prop] === 'boolean') {
-        params[prop] = todo[prop]
-      }
-    }
     const result = await collection.findOneAndReplace(
       { _id: new ObjectId(todo.id) },
-      params,
+      RepositoryHelper.mapValidKeys(
+        {
+          theme: 'blank'
+        },
+        todo
+      ),
       { returnOriginal: false }
     )
     return MongoHelper.mapId(result.value)
