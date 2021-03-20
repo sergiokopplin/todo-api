@@ -1,7 +1,0 @@
-.eslintignore
-node_modules
-dist
-coverage
-./data
-requirements
-.vscode
