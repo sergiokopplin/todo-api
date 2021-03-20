@@ -1,16 +1,26 @@
-export const loadTodosPath = {
-  get: {
+export const updateTodoPath = {
+  put: {
     security: [
       {
         apiKeyAuth: []
       }
     ],
+    requestBody: {
+      required: true,
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/schemas/updateTodoParams'
+          }
+        }
+      }
+    },
     responses: {
       200: {
         content: {
           'application/json': {
             schema: {
-              $ref: '#/schemas/todos'
+              $ref: '#/schemas/todo'
             }
           }
         }

@@ -1,19 +1,23 @@
 import {
   accountSchema,
   todoSchema,
+  todosSchema,
   errorSchema,
   loginParamsSchema,
   signupParamsSchema,
   addTodoParamsSchema,
-  loadTodoParamsSchema
+  loadTodoParamsSchema,
+  updateTodoParamsSchema
 } from './schemas/'
 
 export default {
   account: accountSchema,
   todo: todoSchema,
+  todos: todosSchema,
   error: errorSchema,
   loginParams: loginParamsSchema,
   signupParams: signupParamsSchema,
   addTodoParams: addTodoParamsSchema,
-  loadTodoParams: loadTodoParamsSchema
+  loadTodoParams: loadTodoParamsSchema,
+  updateTodoParams: updateTodoParamsSchema
 }
