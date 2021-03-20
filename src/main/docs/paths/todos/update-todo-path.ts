@@ -1,5 +1,6 @@
 export const updateTodoPath = {
   put: {
+    tags: ['todos'],
     security: [
       {
         apiKeyAuth: []

@@ -1,5 +1,6 @@
 export const signupPath = {
   post: {
+    tags: ['account'],
     requestBody: {
       required: true,
       content: {

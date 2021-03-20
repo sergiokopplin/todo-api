@@ -1,5 +1,6 @@
 export const loginPath = {
   post: {
+    tags: ['account'],
     requestBody: {
       required: true,
       content: {

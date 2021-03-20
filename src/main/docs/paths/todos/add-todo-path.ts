@@ -1,5 +1,6 @@
 export const addTodoPath = {
   post: {
+    tags: ['todos'],
     security: [
       {
         apiKeyAuth: []

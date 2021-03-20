@@ -1,5 +1,6 @@
 export const loadTodoPath = {
   get: {
+    tags: ['todos'],
     security: [
       {
         apiKeyAuth: []

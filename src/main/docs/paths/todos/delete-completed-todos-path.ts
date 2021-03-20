@@ -1,5 +1,6 @@
 export const deleteCompletedTodosPath = {
   delete: {
+    tags: ['todos'],
     security: [
       {
         apiKeyAuth: []
