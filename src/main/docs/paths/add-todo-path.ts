@@ -1,5 +1,10 @@
 export const addTodoPath = {
   post: {
+    security: [
+      {
+        apiKeyAuth: []
+      }
+    ],
     requestBody: {
       required: true,
       content: {

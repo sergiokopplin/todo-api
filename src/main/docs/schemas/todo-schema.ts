@@ -17,5 +17,5 @@ export const todoSchema = {
       type: 'string'
     }
   },
-  required: ['id', 'title']
+  required: ['id', 'title', 'theme', 'completed']
 }
