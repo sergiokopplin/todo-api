@@ -4,7 +4,8 @@ import {
   errorSchema,
   loginParamsSchema,
   signupParamsSchema,
-  addTodoParamsSchema
+  addTodoParamsSchema,
+  loadTodoParamsSchema
 } from './schemas/'
 
 export default {
@@ -13,5 +14,6 @@ export default {
   error: errorSchema,
   loginParams: loginParamsSchema,
   signupParams: signupParamsSchema,
-  addTodoParams: addTodoParamsSchema
+  addTodoParams: addTodoParamsSchema,
+  loadTodoParams: loadTodoParamsSchema
 }
