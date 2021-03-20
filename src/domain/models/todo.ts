@@ -1,4 +1,4 @@
-type Theme = 'blank' | 'red' | 'yellow'
+export type Theme = 'blank' | 'red' | 'yellow'
 
 export interface Todo {
   id: string

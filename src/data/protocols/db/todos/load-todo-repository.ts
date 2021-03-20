@@ -6,8 +6,5 @@ export interface LoadTodoRepository {
 
 export namespace LoadTodoRepository {
   export type Result = Todo
-
-  export interface Param {
-    id: string
-  }
+  export type Param = Pick<Todo, 'id'>
 }
