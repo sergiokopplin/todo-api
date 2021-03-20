@@ -1,3 +1,4 @@
+import { Todo } from '@/domain/models'
 import { Controller, HttpResponse, Validation } from '@/presentation/protocols'
 import { badRequestError, ok, serverError } from '@/presentation/helpers'
 import { UpdateTodo } from '@/domain/usecases'
@@ -23,9 +24,8 @@ export class UpdateTodoController implements Controller {
 }
 
 export namespace UpdateTodoController {
-  export interface Request {
-    id: string
-    title: string
-    completed: boolean
-  }
+  export type Request = Pick<
+    Todo,
+    'id' | 'title' | 'completed' | 'dueDate' | 'theme'
+  >
 }

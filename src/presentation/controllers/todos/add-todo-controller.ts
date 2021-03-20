@@ -1,3 +1,4 @@
+import { Todo } from '@/domain/models'
 import { Controller, HttpResponse, Validation } from '@/presentation/protocols'
 import { badRequestError, created, serverError } from '@/presentation/helpers'
 import { AddTodo } from '@/domain/usecases'
@@ -23,7 +24,5 @@ export class AddTodoController implements Controller {
 }
 
 export namespace AddTodoController {
-  export interface Request {
-    title: string
-  }
+  export type Request = Pick<Todo, 'title' | 'dueDate' | 'theme'>
 }

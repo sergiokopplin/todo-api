@@ -13,7 +13,9 @@ const mockRequest = (): UpdateTodoController.Request => {
   return {
     id: faker.random.uuid(),
     title: faker.random.words(3),
-    completed: true
+    completed: true,
+    dueDate: new Date(),
+    theme: 'blank'
   }
 }
 

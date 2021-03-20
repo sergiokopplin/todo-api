@@ -6,9 +6,5 @@ export interface AddTodoRepository {
 
 export namespace AddTodoRepository {
   export type Result = Todo
-
-  export interface Params {
-    title: string
-    dueDate: Date
-  }
+  export type Params = Pick<Todo, 'title' | 'dueDate' | 'theme'>
 }
