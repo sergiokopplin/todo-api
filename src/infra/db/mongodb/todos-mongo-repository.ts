@@ -55,7 +55,7 @@ export class TodosMongoRepository
       ),
       { returnOriginal: false }
     )
-    return MongoHelper.mapId(result.value)
+    return result.value && MongoHelper.mapId(result.value)
   }
 
   async loadAll(): Promise<LoadTodosRepository.Result[]> {

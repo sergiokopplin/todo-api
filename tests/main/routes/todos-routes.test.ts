@@ -116,7 +116,7 @@ describe('Todos Routes', () => {
       })
     })
 
-    describe('update', () => {
+    describe.only('update', () => {
       test('Should return 403 without accessToken', async () => {
         const todo = mockAddTodoParams()
         const result = await todosCollection.insertOne(todo)
@@ -145,6 +145,20 @@ describe('Todos Routes', () => {
             title: 'new title'
           })
           .expect(200)
+      })
+
+      test('Should return 404 when not exixting todo', async () => {
+        const accessToken = await mockAccessToken()
+
+        await request(app)
+          .put('/api/todos')
+          .set('x-access-token', accessToken)
+          .send({
+            id: '60480d9b39bab84bf07eac95',
+            completed: true,
+            title: 'new title'
+          })
+          .expect(404)
       })
     })
 

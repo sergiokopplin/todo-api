@@ -102,6 +102,18 @@ describe('TodosMongoRepository', () => {
         theme: 'blank'
       })
     })
+
+    test('Should return empty when not existing todo to update', async () => {
+      const sut = makeSut()
+      const updateResult = await sut.update({
+        id: '60480d9b39bab84bf07eac95',
+        completed: true,
+        title: 'new title',
+        dueDate: new Date('2021-03-17T23:18:04.822Z'),
+        theme: 'blank'
+      })
+      expect(updateResult).toEqual(null)
+    })
   })
 
   describe('loadAll()', () => {

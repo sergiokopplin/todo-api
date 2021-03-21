@@ -7,7 +7,12 @@ import {
   MissingParamError,
   ServerError
 } from '@/presentation/errors'
-import { badRequestError, ok, serverError } from '@/presentation/helpers'
+import {
+  badRequestError,
+  notFoundError,
+  ok,
+  serverError
+} from '@/presentation/helpers'
 
 const mockRequest = (): UpdateTodoController.Request => {
   return {
@@ -73,6 +78,13 @@ describe('Add Todo Controller', () => {
     const request = mockRequest()
     await sut.handle(request)
     expect(addSpy).toHaveBeenCalledWith(request)
+  })
+
+  test('Should return 404 if no existing todo', async () => {
+    const { sut, updateTodoSpy } = makeSut()
+    updateTodoSpy.result = null
+    const response = await sut.handle(mockRequest())
+    expect(response).toEqual(notFoundError())
   })
 
   test('Should return 200 if ok', async () => {
