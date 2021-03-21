@@ -7,5 +7,15 @@
 
 ---
 
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sergiokopplin_todo-mvc-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=sergiokopplin_todo-mvc-api)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=sergiokopplin_todo-mvc-api&metric=bugs)](https://sonarcloud.io/dashboard?id=sergiokopplin_todo-mvc-api)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=sergiokopplin_todo-mvc-api&metric=code_smells)](https://sonarcloud.io/dashboard?id=sergiokopplin_todo-mvc-api)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=sergiokopplin_todo-mvc-api&metric=coverage)](https://sonarcloud.io/dashboard?id=sergiokopplin_todo-mvc-api)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=sergiokopplin_todo-mvc-api&metric=ncloc)](https://sonarcloud.io/dashboard?id=sergiokopplin_todo-mvc-api)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=sergiokopplin_todo-mvc-api&metric=security_rating)](https://sonarcloud.io/dashboard?id=sergiokopplin_todo-mvc-api)
+
+---
+
 - [https://kopplin-todo-mvc.herokuapp.com](https://kopplin-todo-mvc.herokuapp.com)
 - [https://dashboard.heroku.com/apps/kopplin-todo-mvc](https://dashboard.heroku.com/apps/kopplin-todo-mvc)
