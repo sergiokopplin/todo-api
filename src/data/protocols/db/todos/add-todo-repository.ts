@@ -11,5 +11,6 @@ export namespace AddTodoRepository {
     title: string
     dueDate?: Date
     theme?: string
+    accountId: string
   }
 }

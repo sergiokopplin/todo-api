@@ -9,22 +9,25 @@ const mockTodo: Todo = {
   completed: false,
   id: faker.random.uuid(),
   dueDate: new Date('2021-03-17T23:18:04.822Z'),
-  theme: 'blank'
+  theme: 'blank',
+  accountId: faker.random.uuid()
 }
 
-const { title, completed, id, dueDate, theme } = mockTodo
+const { title, completed, id, dueDate, theme, accountId } = mockTodo
 
 export const mockAddTodoParams = (): AddTodo.Params => ({
   title,
   dueDate,
-  theme
+  theme,
+  accountId
 })
-export const mockDeleteTodoParams = (): DeleteTodo.Params => ({ id })
-export const mockLoadTodoParams = (): LoadTodo.Param => ({ id })
+export const mockDeleteTodoParams = (): DeleteTodo.Params => ({ id, accountId })
+export const mockLoadTodoParams = (): LoadTodo.Param => ({ id, accountId })
 export const mockUpdateTodoParams = (): UpdateTodo.Params => ({
   title,
   completed,
   id,
   dueDate,
-  theme
+  theme,
+  accountId
 })

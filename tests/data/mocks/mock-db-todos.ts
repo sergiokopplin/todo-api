@@ -11,6 +11,7 @@ import {
 
 const mockTodo: Todo = {
   id: faker.random.uuid(),
+  accountId: faker.random.uuid(),
   title: faker.random.words(3),
   completed: false,
   dueDate: new Date(),

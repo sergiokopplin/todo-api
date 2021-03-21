@@ -4,4 +4,5 @@ export interface Todo {
   completed: boolean
   dueDate: Date
   theme: string
+  accountId: string
 }

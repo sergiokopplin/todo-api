@@ -8,7 +8,8 @@ export class DbAddTodo implements AddTodo {
     return await this.addTodoRepository.add({
       title: todo.title,
       dueDate: todo.dueDate,
-      theme: todo.theme
+      theme: todo.theme,
+      accountId: todo.accountId
     })
   }
 }

@@ -29,14 +29,15 @@ export class TodosMongoRepository
     return MongoHelper.mapId(result.ops[0])
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: string, accountId: string): Promise<void> {
     const collection = await MongoHelper.getCollection('todos')
-    await collection.deleteOne({ _id: new ObjectId(id) })
+    await collection.deleteOne({ _id: new ObjectId(id), accountId })
   }
 
-  async deleteCompleted(): Promise<void> {
+  async deleteCompleted(accountId: string): Promise<void> {
     const collection = await MongoHelper.getCollection('todos')
     await collection.deleteMany({
+      accountId,
       completed: true
     })
   }
@@ -58,9 +59,9 @@ export class TodosMongoRepository
     return result.value && MongoHelper.mapId(result.value)
   }
 
-  async loadAll(): Promise<LoadTodosRepository.Result[]> {
+  async loadAll(accountId: string): Promise<LoadTodosRepository.Result[]> {
     const collection = await MongoHelper.getCollection('todos')
-    const result = collection.find()
+    const result = collection.find({ accountId })
     const list = await result.toArray()
     return result && list.map(item => MongoHelper.mapId(item))
   }
@@ -69,7 +70,10 @@ export class TodosMongoRepository
     todo: LoadTodoRepository.Param
   ): Promise<LoadTodoRepository.Result> {
     const collection = await MongoHelper.getCollection('todos')
-    const result = await collection.findOne({ _id: new ObjectId(todo.id) })
+    const result = await collection.findOne({
+      _id: new ObjectId(todo.id),
+      accountId: todo.accountId
+    })
     return result && MongoHelper.mapId(result)
   }
 }

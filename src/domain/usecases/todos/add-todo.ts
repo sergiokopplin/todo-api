@@ -9,7 +9,8 @@ export namespace AddTodo {
 
   export interface Params {
     title: string
-    dueDate: Date
-    theme: string
+    dueDate?: Date
+    theme?: string
+    accountId: string
   }
 }

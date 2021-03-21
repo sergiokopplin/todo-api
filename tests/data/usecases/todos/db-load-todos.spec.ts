@@ -1,3 +1,5 @@
+import faker from 'faker'
+
 import { DbLoadTodos } from '@/data/usecases'
 import { LoadTodosRepositorySpy } from '@/tests/data/mocks'
 import { throwError } from '@/tests/presentation/mocks'
@@ -17,19 +19,25 @@ const makeSut = (): SutTypes => {
   }
 }
 
+const mockRequest = (): DbLoadTodos.Param => {
+  return {
+    accountId: faker.random.uuid()
+  }
+}
+
 describe('DbLoadTodos', () => {
   test('Should throw if LoadTodosRepositorySpy throws', async () => {
     const { sut, loadTodosRepositorySpy } = makeSut()
     jest
       .spyOn(loadTodosRepositorySpy, 'loadAll')
       .mockImplementationOnce(throwError)
-    const promise = sut.loadAll()
+    const promise = sut.loadAll(mockRequest().accountId)
     await expect(promise).rejects.toThrow()
   })
 
   test('Should return an todo list if it succeeds', async () => {
     const { sut, loadTodosRepositorySpy } = makeSut()
-    const response = await sut.loadAll()
+    const response = await sut.loadAll(mockRequest().accountId)
     expect(response).toBe(loadTodosRepositorySpy.result)
   })
 })
