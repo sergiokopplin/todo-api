@@ -5,12 +5,18 @@ import { ok, serverError } from '@/presentation/helpers'
 export class LoadTodosController implements Controller {
   constructor(private readonly loadTodos: LoadTodos) {}
 
-  async handle(): Promise<HttpResponse> {
+  async handle(request: LoadTodosController.Request): Promise<HttpResponse> {
     try {
-      const result = await this.loadTodos.loadAll()
+      const result = await this.loadTodos.loadAll(request.accountId)
       return ok(result)
     } catch (error) {
       return serverError(error)
     }
+  }
+}
+
+export namespace LoadTodosController {
+  export interface Request {
+    accountId: string
   }
 }

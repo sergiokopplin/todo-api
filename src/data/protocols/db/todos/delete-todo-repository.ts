@@ -1,4 +1,4 @@
 export interface DeleteTodoRepository {
-  delete: (id: string) => Promise<void>
-  deleteCompleted: () => Promise<void>
+  delete: (id: string, accountId: string) => Promise<void>
+  deleteCompleted: (accountId: string) => Promise<void>
 }

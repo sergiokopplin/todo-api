@@ -1,3 +1,4 @@
+import faker from 'faker'
 import { Collection } from 'mongodb'
 
 import { MongoHelper, TodosMongoRepository } from '@/infra/db'
@@ -26,11 +27,15 @@ describe('TodosMongoRepository', () => {
   describe('add()', () => {
     test('Should return an todo on success', async () => {
       const sut = makeSut()
-      const result = await sut.add({ title: mockAddTodoParams().title })
+      const result = await sut.add({
+        title: mockAddTodoParams().title,
+        accountId: mockAddTodoParams().accountId
+      })
       expect(result.id).toBeTruthy()
       expect(result.title).toBe(mockAddTodoParams().title)
       expect(result.theme).toBe('blank')
       expect(result.completed).toBe(false)
+      expect(result.accountId).toBe(mockAddTodoParams().accountId)
     })
 
     test('Should return correctly with optional params', async () => {
@@ -38,7 +43,8 @@ describe('TodosMongoRepository', () => {
       const result = await sut.add({
         title: mockAddTodoParams().title,
         dueDate: new Date('2021-03-17T23:18:04.822Z'),
-        theme: 'custom'
+        theme: 'custom',
+        accountId: mockAddTodoParams().accountId
       })
       expect(result.id).toBeTruthy()
       expect(result.theme).toBe('custom')
@@ -50,10 +56,10 @@ describe('TodosMongoRepository', () => {
     test('Should return 0 on count', async () => {
       const sut = makeSut()
       const todo = mockAddTodoParams()
-      const result = await todosCollection.insertOne({ todo })
+      const result = await todosCollection.insertOne(todo)
       let count = await todosCollection.countDocuments()
       expect(count).toBe(1)
-      await sut.delete(result.ops[0]._id)
+      await sut.delete(result.ops[0]._id, todo.accountId)
       count = await todosCollection.countDocuments()
       expect(count).toBe(0)
     })
@@ -62,23 +68,39 @@ describe('TodosMongoRepository', () => {
   describe('deleteCompleted()', () => {
     test('Should return 1 on count', async () => {
       const sut = makeSut()
-      await todosCollection.insertOne({
-        ...mockAddTodoParams(),
-        completed: true
-      })
-      await todosCollection.insertOne({
-        ...mockAddTodoParams(),
-        completed: false
-      })
-      await todosCollection.insertOne({
-        ...mockAddTodoParams(),
-        completed: true
-      })
+      const accountId = faker.random.uuid()
+      await todosCollection.insertMany([
+        {
+          ...mockAddTodoParams(),
+          completed: true
+        },
+        {
+          ...mockAddTodoParams(),
+          completed: true,
+          accountId
+        },
+        {
+          ...mockAddTodoParams(),
+          completed: false
+        },
+        {
+          ...mockAddTodoParams(),
+          completed: true,
+          accountId
+        },
+        {
+          ...mockAddTodoParams(),
+          completed: false,
+          accountId
+        }
+      ])
       let count = await todosCollection.countDocuments()
-      expect(count).toBe(3)
-      await sut.deleteCompleted()
+      expect(count).toBe(5)
+      await sut.deleteCompleted(accountId)
       count = await todosCollection.countDocuments()
-      expect(count).toBe(1)
+      expect(count).toBe(3)
+      const result = await todosCollection.find({ accountId }).toArray()
+      expect(result.length).toBe(1)
     })
   })
 
@@ -92,14 +114,16 @@ describe('TodosMongoRepository', () => {
         completed: false,
         title: 'new title',
         dueDate: new Date('2021-03-17T23:18:04.822Z'),
-        theme: 'blank'
+        theme: 'blank',
+        accountId: mockAddTodoParams().accountId
       })
       expect(updateResult).toEqual({
         id: result.ops[0]._id,
         completed: false,
         title: 'new title',
         dueDate: new Date('2021-03-17T23:18:04.822Z'),
-        theme: 'blank'
+        theme: 'blank',
+        accountId: mockAddTodoParams().accountId
       })
     })
 
@@ -110,7 +134,8 @@ describe('TodosMongoRepository', () => {
         completed: true,
         title: 'new title',
         dueDate: new Date('2021-03-17T23:18:04.822Z'),
-        theme: 'blank'
+        theme: 'blank',
+        accountId: mockAddTodoParams().accountId
       })
       expect(updateResult).toEqual(null)
     })
@@ -119,25 +144,38 @@ describe('TodosMongoRepository', () => {
   describe('loadAll()', () => {
     test('Should return all todos', async () => {
       const sut = makeSut()
+      const accountId = mockAddTodoParams().accountId
       await todosCollection.insertOne({
         title: 'first title',
-        completed: true
+        completed: true,
+        accountId
+      })
+      await todosCollection.insertOne({
+        title: 'second title',
+        completed: false,
+        accountId
       })
       await todosCollection.insertOne({
         title: 'second title',
         completed: false
       })
-      const loadAllResult = await sut.loadAll()
+      const loadAllResult = await sut.loadAll(mockAddTodoParams().accountId)
       const count = await todosCollection.countDocuments()
-      expect(count).toBe(2)
+      expect(count).toBe(3)
       expect(loadAllResult.length).toBe(2)
+      const result = await todosCollection.find({ accountId }).toArray()
+      expect(result.length).toBe(2)
     })
 
     test('Should return empty todos', async () => {
       const sut = makeSut()
-      const loadAllResult = await sut.loadAll()
+      await todosCollection.insertOne({
+        title: 'second title',
+        completed: false
+      })
+      const loadAllResult = await sut.loadAll(mockAddTodoParams().accountId)
       const count = await todosCollection.countDocuments()
-      expect(count).toBe(0)
+      expect(count).toBe(1)
       expect(loadAllResult.length).toBe(0)
     })
   })
@@ -145,21 +183,32 @@ describe('TodosMongoRepository', () => {
   describe('load()', () => {
     test('Should return a todo', async () => {
       const sut = makeSut()
+      const accountId = mockAddTodoParams().accountId
       const result = await todosCollection.insertOne({
         title: 'first title',
-        completed: true
+        completed: true,
+        accountId
       })
-      const loadAllResult = await sut.load({ id: result.insertedId })
+      const loadAllResult = await sut.load({ id: result.insertedId, accountId })
       expect(loadAllResult).toEqual({
         id: result.insertedId,
         title: 'first title',
-        completed: true
+        completed: true,
+        accountId
       })
     })
 
     test('Should return an empty todo when no results', async () => {
       const sut = makeSut()
-      const loadAllResult = await sut.load({ id: '6048177f57568d02bfca0f0f' })
+      const accountId = mockAddTodoParams().accountId
+      await todosCollection.insertOne({
+        title: 'second title',
+        completed: false
+      })
+      const loadAllResult = await sut.load({
+        id: '6048177f57568d02bfca0f0f',
+        accountId
+      })
       expect(loadAllResult).toEqual(null)
     })
   })

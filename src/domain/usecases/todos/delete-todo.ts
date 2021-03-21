@@ -5,5 +5,6 @@ export interface DeleteTodo {
 export namespace DeleteTodo {
   export interface Params {
     id: string
+    accountId: string
   }
 }

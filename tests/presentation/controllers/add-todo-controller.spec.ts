@@ -11,7 +11,8 @@ import { badRequestError, created, serverError } from '@/presentation/helpers'
 
 const mockRequest = (): AddTodoController.Request => {
   return {
-    title: faker.random.words(3)
+    title: faker.random.words(3),
+    accountId: faker.random.uuid()
   }
 }
 

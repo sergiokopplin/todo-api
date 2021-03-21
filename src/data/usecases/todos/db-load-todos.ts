@@ -4,7 +4,13 @@ import { LoadTodos } from '@/domain/usecases'
 export class DbLoadTodos implements LoadTodos {
   constructor(private readonly loadTodosRepository: LoadTodosRepository) {}
 
-  async loadAll(): Promise<LoadTodos.Result> {
-    return await this.loadTodosRepository.loadAll()
+  async loadAll(accountId: string): Promise<LoadTodos.Result> {
+    return await this.loadTodosRepository.loadAll(accountId)
+  }
+}
+
+export namespace DbLoadTodos {
+  export interface Param {
+    accountId: string
   }
 }

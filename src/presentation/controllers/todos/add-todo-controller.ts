@@ -8,7 +8,7 @@ export class AddTodoController implements Controller {
     private readonly addTodo: AddTodo
   ) {}
 
-  async handle(request: any): Promise<HttpResponse> {
+  async handle(request: AddTodoController.Request): Promise<HttpResponse> {
     try {
       const error = this.validation.validate(request)
       if (error) {
@@ -26,6 +26,7 @@ export namespace AddTodoController {
   export interface Request {
     title: string
     dueDate?: Date
-    theme?: Date
+    theme?: string
+    accountId: string
   }
 }

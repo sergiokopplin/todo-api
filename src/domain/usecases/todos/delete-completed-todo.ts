@@ -1,3 +1,3 @@
 export interface DeleteCompletedTodos {
-  delete: () => Promise<void>
+  delete: (accountId: string) => Promise<void>
 }
