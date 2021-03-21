@@ -116,7 +116,7 @@ describe('Todos Routes', () => {
       })
     })
 
-    describe.only('update', () => {
+    describe('update', () => {
       test('Should return 403 without accessToken', async () => {
         const todo = mockAddTodoParams()
         const result = await todosCollection.insertOne(todo)
