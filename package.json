@@ -1,10 +1,10 @@
 {
-  "name": "todo-mvc-api-v2",
+  "name": "todo-api",
   "author": "Sergio Kopplin <sergiokopplin@gmail.com>",
   "version": "1.0.0",
-  "description": "A simple node API project",
+  "description": "A node API project",
   "repository": {
-    "url": "https://github.com/sergiokopplin/clean-ts-api-v2"
+    "url": "https://github.com/sergiokopplin/todo-api"
   },
   "license": "GPL-3.0-or-later",
   "scripts": {
