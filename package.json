@@ -25,7 +25,7 @@
   "devDependencies": {
     "@kopplin/eslint-config": "^1.0.1",
     "@kopplin/prettier-config": "^1.1.0",
-    "@kopplin/ts-config": "^1.0.0",
+    "@kopplin/ts-config": "^1.1.0",
     "@shelf/jest-mongodb": "^1.2.3",
     "@types/bcrypt": "^3.0.0",
     "@types/body-parser": "^1.19.0",
