@@ -7,8 +7,8 @@ import {
   signupParamsSchema,
   addTodoParamsSchema,
   loadTodoParamsSchema,
-  updateTodoParamsSchema
-} from './schemas/'
+  updateTodoParamsSchema,
+} from './schemas/';
 
 export default {
   account: accountSchema,
@@ -19,5 +19,5 @@ export default {
   signupParams: signupParamsSchema,
   addTodoParams: addTodoParamsSchema,
   loadTodoParams: loadTodoParamsSchema,
-  updateTodoParams: updateTodoParamsSchema
-}
+  updateTodoParams: updateTodoParamsSchema,
+};

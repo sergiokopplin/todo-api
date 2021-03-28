@@ -1,2 +1,2 @@
-export * from './account'
-export * from './todos'
+export * from './account';
+export * from './todos';

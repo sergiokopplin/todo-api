@@ -1,5 +1,5 @@
 declare module Express {
   interface Request {
-    accountId?: string
+    accountId?: string;
   }
 }
