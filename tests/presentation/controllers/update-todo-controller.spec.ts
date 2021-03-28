@@ -7,7 +7,7 @@ import { ValidationSpy, UpdateTodoSpy } from '@/tests/presentation/mocks';
 
 const mockRequest = (): UpdateTodoController.Request => {
   return {
-    id: faker.datatype.uuid(),
+    id: faker.random.uuid(),
     title: faker.random.words(3),
     completed: true,
   };

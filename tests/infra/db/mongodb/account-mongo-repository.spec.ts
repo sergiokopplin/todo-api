@@ -60,7 +60,7 @@ describe('AccountMongoRepository', () => {
       const sut = makeSut();
       const account = await accountCollection.insertOne({ ...mockAccount });
       expect(account.ops[0].accessToken).toBeFalsy();
-      const accessToken = faker.datatype.uuid();
+      const accessToken = faker.random.uuid();
       await sut.updateAccessToken(account.ops[0]._id, accessToken);
       const updatedAccount = await accountCollection.findOne({
         _id: account.ops[0]._id,
@@ -73,13 +73,13 @@ describe('AccountMongoRepository', () => {
     let name = faker.name.findName();
     let email = faker.internet.email();
     let password = faker.internet.password();
-    let accessToken = faker.datatype.uuid();
+    let accessToken = faker.random.uuid();
 
     beforeEach(() => {
       name = faker.name.findName();
       email = faker.internet.email();
       password = faker.internet.password();
-      accessToken = faker.datatype.uuid();
+      accessToken = faker.random.uuid();
     });
 
     test('Should return an account on loadByToken without role', async () => {

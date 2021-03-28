@@ -7,7 +7,7 @@ import { LoadTodoSpy, ValidationSpy } from '@/tests/presentation/mocks';
 
 const mockRequest = (): LoadTodoController.Request => {
   return {
-    id: faker.datatype.uuid(),
+    id: faker.random.uuid(),
   };
 };
 

@@ -68,7 +68,7 @@ describe('TodosMongoRepository', () => {
   describe('deleteCompleted()', () => {
     test('Should return 1 on count', async () => {
       const sut = makeSut();
-      const accountId = faker.datatype.uuid();
+      const accountId = faker.random.uuid();
       await todosCollection.insertMany([
         {
           ...mockAddTodoParams(),

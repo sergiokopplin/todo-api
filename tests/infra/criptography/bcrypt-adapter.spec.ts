@@ -29,7 +29,7 @@ describe('BcryptAdapter', () => {
 
     test('Should return an id on success', async () => {
       const { sut } = makeSut();
-      const uuid = faker.datatype.uuid();
+      const uuid = faker.random.uuid();
       const password = faker.internet.password();
       jest.spyOn(bcrypt, 'hash').mockImplementationOnce(async () => await Promise.resolve(uuid));
       const result = await sut.hash(password);

@@ -29,7 +29,7 @@ describe('MongoHelper', () => {
 
   test('Should mapId correctly', async () => {
     const request = {
-      _id: faker.datatype.uuid(),
+      _id: faker.random.uuid(),
       email: faker.internet.email(),
       name: faker.name.findName(),
     };

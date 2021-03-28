@@ -11,8 +11,8 @@ import {
 } from '@/domain/usecases';
 
 const mockTodo = (): Todo => ({
-  id: faker.datatype.uuid(),
-  accountId: faker.datatype.uuid(),
+  id: faker.random.uuid(),
+  accountId: faker.random.uuid(),
   title: faker.random.words(3),
   completed: false,
   dueDate: new Date(),

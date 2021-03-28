@@ -8,7 +8,7 @@ import { AddTodoSpy, ValidationSpy } from '@/tests/presentation/mocks';
 const mockRequest = (): AddTodoController.Request => {
   return {
     title: faker.random.words(3),
-    accountId: faker.datatype.uuid(),
+    accountId: faker.random.uuid(),
   };
 };
 

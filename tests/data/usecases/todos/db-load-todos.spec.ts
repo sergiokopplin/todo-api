@@ -21,7 +21,7 @@ const makeSut = (): SutTypes => {
 
 const mockRequest = (): DbLoadTodos.Param => {
   return {
-    accountId: faker.datatype.uuid(),
+    accountId: faker.random.uuid(),
   };
 };
 

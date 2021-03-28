@@ -3,7 +3,7 @@ import faker from 'faker';
 import { Hasher, HashComparer, Encrypter, Decrypter } from '@/data/protocols';
 
 export class HasherSpy implements Hasher {
-  result = faker.datatype.uuid();
+  result = faker.random.uuid();
   plaintext: string;
 
   async hash(plaintext: string): Promise<string> {
@@ -25,7 +25,7 @@ export class HashComparerSpy implements HashComparer {
 }
 
 export class EncrypterSpy implements Encrypter {
-  result = faker.datatype.uuid();
+  result = faker.random.uuid();
   plaintext: string;
 
   async encrypt(plaintext: string): Promise<string> {

@@ -22,7 +22,7 @@ const makeSut = (): SutTypes => {
 
 const mockRequest = (): DeleteCompletedTodosController.Request => {
   return {
-    accountId: faker.datatype.uuid(),
+    accountId: faker.random.uuid(),
   };
 };
 

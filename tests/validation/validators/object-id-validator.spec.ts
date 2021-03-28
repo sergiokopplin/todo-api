@@ -28,7 +28,7 @@ describe('ObjectIdValidator', () => {
 
   test('Should return empty if validation is ok', () => {
     const { sut } = makeSut();
-    expect(sut.validate({ id: faker.datatype.uuid() })).toBeFalsy();
+    expect(sut.validate({ id: faker.random.uuid() })).toBeFalsy();
   });
 
   test('Should return empty validation if optional', () => {

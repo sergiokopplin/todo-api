@@ -7,7 +7,7 @@ import { DeleteTodoSpy, ValidationSpy } from '@/tests/presentation/mocks';
 
 const mockRequest = (): DeleteTodoController.Request => {
   return {
-    id: faker.datatype.uuid(),
+    id: faker.random.uuid(),
   };
 };
 
@@ -47,7 +47,7 @@ describe('Delete Todo Controller', () => {
 
   test('Should return 400 if Validation returns an error', async () => {
     const { sut, validationSpy } = makeSut();
-    validationSpy.error = new MissingParamError(faker.datatype.uuid());
+    validationSpy.error = new MissingParamError(faker.random.uuid());
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(badRequestError(validationSpy.error));
   });

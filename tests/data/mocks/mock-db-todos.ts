@@ -10,8 +10,8 @@ import {
 import { Todo } from '@/domain/models';
 
 const mockTodo: Todo = {
-  id: faker.datatype.uuid(),
-  accountId: faker.datatype.uuid(),
+  id: faker.random.uuid(),
+  accountId: faker.random.uuid(),
   title: faker.random.words(3),
   completed: false,
   dueDate: new Date(),
@@ -50,7 +50,7 @@ export class DeleteTodoRepositorySpy implements DeleteTodoRepository {
 
 export class UpdateTodoRepositorySpy implements UpdateTodoRepository {
   params = {
-    id: faker.datatype.uuid(),
+    id: faker.random.uuid(),
     title: faker.random.words(3),
     completed: false,
   };
@@ -72,7 +72,7 @@ export class LoadTodosRepositorySpy implements LoadTodosRepository {
 }
 
 export class LoadTodoRepositorySpy implements LoadTodoRepository {
-  id = faker.datatype.uuid();
+  id = faker.random.uuid();
   result = mockTodo;
 
   async load(todo: LoadTodoRepository.Param): Promise<LoadTodoRepository.Result> {

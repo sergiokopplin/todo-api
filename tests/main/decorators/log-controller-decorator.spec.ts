@@ -6,7 +6,7 @@ import { Controller, HttpResponse } from '@/presentation/protocols';
 import { LogErrorRepositorySpy } from '@/tests/data/mocks';
 
 class ControllerSpy implements Controller {
-  httpResponse = ok(faker.datatype.uuid());
+  httpResponse = ok(faker.random.uuid());
   request: any;
 
   async handle(request: any): Promise<HttpResponse> {

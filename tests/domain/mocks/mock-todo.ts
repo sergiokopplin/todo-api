@@ -6,10 +6,10 @@ import { AddTodo, DeleteTodo, UpdateTodo, LoadTodo } from '@/domain/usecases';
 const mockTodo: Todo = {
   title: faker.random.words(3),
   completed: false,
-  id: faker.datatype.uuid(),
+  id: faker.random.uuid(),
   dueDate: new Date('2021-03-17T23:18:04.822Z'),
   theme: 'blank',
-  accountId: faker.datatype.uuid(),
+  accountId: faker.random.uuid(),
 };
 
 const { title, completed, id, dueDate, theme, accountId } = mockTodo;
