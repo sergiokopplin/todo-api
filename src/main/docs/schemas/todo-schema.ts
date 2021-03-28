@@ -2,20 +2,20 @@ export const todoSchema = {
   type: 'object',
   properties: {
     id: {
-      type: 'string'
+      type: 'string',
     },
     title: {
-      type: 'string'
+      type: 'string',
     },
     dueDate: {
-      type: 'string'
+      type: 'string',
     },
     completed: {
-      type: 'boolean'
+      type: 'boolean',
     },
     theme: {
-      type: 'string'
-    }
+      type: 'string',
+    },
   },
-  required: ['id', 'title', 'theme', 'completed']
-}
+  required: ['id', 'title', 'theme', 'completed'],
+};

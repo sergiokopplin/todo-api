@@ -2,20 +2,20 @@ export const updateTodoParamsSchema = {
   type: 'object',
   properties: {
     title: {
-      type: 'string'
+      type: 'string',
     },
     theme: {
-      type: 'string'
+      type: 'string',
     },
     dueDate: {
-      type: 'string'
+      type: 'string',
     },
     id: {
-      type: 'string'
+      type: 'string',
     },
     completed: {
-      type: 'boolean'
-    }
+      type: 'boolean',
+    },
   },
-  required: ['id', 'completed', 'title', 'theme']
-}
+  required: ['id', 'completed', 'title', 'theme'],
+};

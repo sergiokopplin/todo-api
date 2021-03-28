@@ -1,10 +1,10 @@
 export interface DeleteTodo {
-  delete: (todo: DeleteTodo.Params) => Promise<void>
+  delete: (todo: DeleteTodo.Params) => Promise<void>;
 }
 
 export namespace DeleteTodo {
   export interface Params {
-    id: string
-    accountId: string
+    id: string;
+    accountId: string;
   }
 }
