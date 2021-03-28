@@ -70,7 +70,8 @@
   },
   "lint-staged": {
     "*.ts": [
-      "npx eslint src --fix"
+      "npx eslint src --fix",
+      "npx eslint tests --fix"
     ]
   },
   "husky": {

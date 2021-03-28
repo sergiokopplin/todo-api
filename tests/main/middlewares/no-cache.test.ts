@@ -1,20 +1,17 @@
-import request from 'supertest'
+import request from 'supertest';
 
-import app from '@/main/config/app'
+import app from '@/main/config/app';
 
 describe('NoCache Middleware', () => {
   test('Should set cache correctly', async () => {
     app.get('/test_no_cache', (req, res) => {
-      res.send()
-    })
+      res.send();
+    });
 
     await request(app)
       .get('/test_no_cache')
-      .expect(
-        'Cache-Control',
-        'no-store, no-cache, must-revalidate, proxy-revalidate'
-      )
+      .expect('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate')
       .expect('Expires', '0')
-      .expect('Surrogate-Control', 'no-store')
-  })
-})
+      .expect('Surrogate-Control', 'no-store');
+  });
+});

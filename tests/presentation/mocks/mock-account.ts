@@ -1,47 +1,40 @@
-import faker from 'faker'
+import faker from 'faker';
 
-import {
-  AddAccount,
-  Authentication,
-  LoadAccountByToken
-} from '@/domain/usecases'
+import { AddAccount, Authentication, LoadAccountByToken } from '@/domain/usecases';
 
 export class AddAccountSpy implements AddAccount {
-  params: AddAccount.Params
-  result = true
+  params: AddAccount.Params;
+  result = true;
 
   async add(params: AddAccount.Params): Promise<AddAccount.Result> {
-    this.params = params
-    return this.result
+    this.params = params;
+    return this.result;
   }
 }
 
 export class AuthenticationSpy implements Authentication {
-  params: Authentication.Params
+  params: Authentication.Params;
   result = {
-    accessToken: faker.random.uuid(),
-    name: faker.name.findName()
-  }
+    accessToken: faker.datatype.uuid(),
+    name: faker.name.findName(),
+  };
 
   async auth(params: Authentication.Params): Promise<Authentication.Result> {
-    this.params = params
-    return this.result
+    this.params = params;
+    return this.result;
   }
 }
 
 export class LoadAccountByTokenSpy implements LoadAccountByToken {
-  accessToken: string
-  role: string
+  accessToken: string;
+  role: string;
   result = {
-    id: faker.random.uuid()
-  }
+    id: faker.datatype.uuid(),
+  };
 
-  async load(
-    accessToken: string,
-    role?: string
-  ): Promise<LoadAccountByToken.Result> {
-    this.accessToken = accessToken
-    this.role = role
-    return this.result
+  async load(accessToken: string, role?: string): Promise<LoadAccountByToken.Result> {
+    this.accessToken = accessToken;
+    this.role = role;
+    return this.result;
   }
 }

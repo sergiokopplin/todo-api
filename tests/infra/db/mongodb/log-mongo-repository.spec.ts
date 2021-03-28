@@ -1,32 +1,32 @@
-import { LogMongoRepository, MongoHelper } from '@/infra/db'
+import faker from 'faker';
+import { Collection } from 'mongodb';
 
-import { Collection } from 'mongodb'
-import faker from 'faker'
+import { LogMongoRepository, MongoHelper } from '@/infra/db';
 
 const makeSut = (): LogMongoRepository => {
-  return new LogMongoRepository()
-}
+  return new LogMongoRepository();
+};
 
-let errorCollection: Collection
+let errorCollection: Collection;
 
 describe('LogMongoRepository', () => {
   beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL)
-  })
+    await MongoHelper.connect(process.env.MONGO_URL);
+  });
 
   afterAll(async () => {
-    await MongoHelper.disconnect()
-  })
+    await MongoHelper.disconnect();
+  });
 
   beforeEach(async () => {
-    errorCollection = await MongoHelper.getCollection('errors')
-    await errorCollection.deleteMany({})
-  })
+    errorCollection = await MongoHelper.getCollection('errors');
+    await errorCollection.deleteMany({});
+  });
 
   test('Should create an error log on success', async () => {
-    const sut = makeSut()
-    await sut.logError(faker.random.words())
-    const count = await errorCollection.countDocuments()
-    expect(count).toBe(1)
-  })
-})
+    const sut = makeSut();
+    await sut.logError(faker.random.words());
+    const count = await errorCollection.countDocuments();
+    expect(count).toBe(1);
+  });
+});
