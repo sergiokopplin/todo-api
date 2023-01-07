@@ -1,5 +1,5 @@
 {
-  "extends": "@kopplin/ts-config",
+  "extends": "@kopplin/tsconfig",
   "compilerOptions": {
     "outDir": "dist",
     "rootDirs": ["src", "tests"],

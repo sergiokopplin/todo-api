@@ -23,9 +23,9 @@
     "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info"
   },
   "devDependencies": {
-    "@kopplin/eslint-config": "^1.0.1",
-    "@kopplin/prettier-config": "^1.1.0",
-    "@kopplin/ts-config": "^1.1.0",
+    "@kopplin/eslint": "^0.0.1",
+    "@kopplin/prettier": "^0.0.1",
+    "@kopplin/tsconfig": "^0.0.1",
     "@shelf/jest-mongodb": "^1.2.3",
     "@types/bcrypt": "^3.0.0",
     "@types/body-parser": "^1.19.0",
