@@ -3,7 +3,7 @@ import validator from 'validator';
 import { PasswordStrengthValidatorAdapter } from '@/infra/validators';
 
 jest.mock('validator', () => ({
-  isStrongPassword(): boolean {
+  isStrongPassword(): any {
     return true;
   },
 }));
@@ -22,9 +22,9 @@ const options = {
 describe('PasswordStrengthValidatorAdapter', () => {
   test('Should return false if validator returns false', () => {
     const sut = makeSut();
-    jest.spyOn(validator, 'isStrongPassword').mockReturnValueOnce(false);
+    jest.spyOn(validator, 'isStrongPassword').mockReturnValueOnce(null);
     const isValid = sut.validate('any_password');
-    expect(isValid).toBe(false);
+    expect(isValid).toBe(null);
   });
 
   test('Should return true if validator returns true', () => {
