@@ -39,7 +39,7 @@
 
 ## Prerequisites
 
-- node 12.x
+- node 14.x
 
 ## Install
 
