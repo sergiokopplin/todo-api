@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { MissingParamError } from '@/presentation/errors';
 import { RequiredFieldValidator } from '@/validation/validators';

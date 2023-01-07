@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { InvalidParamError } from '@/presentation/errors';
 import { EmailValidationSpy } from '@/tests/validation/mocks';

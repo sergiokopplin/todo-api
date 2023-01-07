@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { Collection } from 'mongodb';
 
 import { MongoHelper, TodosMongoRepository } from '@/infra/db';
@@ -68,7 +68,7 @@ describe('TodosMongoRepository', () => {
   describe('deleteCompleted()', () => {
     test('Should return 1 on count', async () => {
       const sut = makeSut();
-      const accountId = faker.random.uuid();
+      const accountId = faker.datatype.uuid();
       await todosCollection.insertMany([
         {
           ...mockAddTodoParams(),

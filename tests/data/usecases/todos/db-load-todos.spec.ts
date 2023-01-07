@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { DbLoadTodos } from '@/data/usecases';
 import { LoadTodosRepositorySpy } from '@/tests/data/mocks';
@@ -21,7 +21,7 @@ const makeSut = (): SutTypes => {
 
 const mockRequest = (): DbLoadTodos.Param => {
   return {
-    accountId: faker.random.uuid(),
+    accountId: faker.datatype.uuid(),
   };
 };
 

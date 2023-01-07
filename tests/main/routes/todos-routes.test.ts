@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { sign } from 'jsonwebtoken';
 import { Collection } from 'mongodb';
 import request from 'supertest';

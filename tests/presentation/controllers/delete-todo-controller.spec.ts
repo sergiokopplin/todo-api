@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { DeleteTodoController } from '@/presentation/controllers';
 import { InvalidParamError, MissingParamError, ServerError } from '@/presentation/errors';
@@ -7,7 +7,7 @@ import { DeleteTodoSpy, ValidationSpy } from '@/tests/presentation/mocks';
 
 const mockRequest = (): DeleteTodoController.Request => {
   return {
-    id: faker.random.uuid(),
+    id: faker.datatype.uuid(),
   };
 };
 
@@ -47,7 +47,7 @@ describe('Delete Todo Controller', () => {
 
   test('Should return 400 if Validation returns an error', async () => {
     const { sut, validationSpy } = makeSut();
-    validationSpy.error = new MissingParamError(faker.random.uuid());
+    validationSpy.error = new MissingParamError(faker.datatype.uuid());
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(badRequestError(validationSpy.error));
   });

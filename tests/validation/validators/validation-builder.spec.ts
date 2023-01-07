@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import {
   DateValidatorAdapter,
@@ -35,7 +35,7 @@ describe('ValidationBuilder', () => {
 
   test('Should return MinLengthValidator', () => {
     const field = faker.database.column();
-    const length = faker.random.number();
+    const length = faker.datatype.number();
 
     const validations = sut.field(field).min(length).build();
 
@@ -76,7 +76,7 @@ describe('ValidationBuilder', () => {
 
   test('Should return a list of validations', () => {
     const field = faker.database.column();
-    const length = faker.random.number();
+    const length = faker.datatype.number();
     const fieldToCompare = faker.database.column();
 
     const validations = sut

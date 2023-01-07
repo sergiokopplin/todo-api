@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { Collection } from 'mongodb';
 
 import { MongoHelper as sut } from '@/infra/db';
@@ -29,9 +29,9 @@ describe('MongoHelper', () => {
 
   test('Should mapId correctly', async () => {
     const request = {
-      _id: faker.random.uuid(),
+      _id: faker.datatype.uuid(),
       email: faker.internet.email(),
-      name: faker.name.findName(),
+      name: faker.name.fullName(),
     };
     const result = sut.mapId(request);
     expect(result).toEqual({

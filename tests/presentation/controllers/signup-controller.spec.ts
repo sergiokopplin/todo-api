@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { SignUpController } from '@/presentation/controllers';
 import {
@@ -13,7 +13,7 @@ import { AddAccountSpy, ValidationSpy, AuthenticationSpy } from '@/tests/present
 const mockRequest = (): SignUpController.Request => {
   const password = faker.internet.password();
   return {
-    name: faker.name.findName(),
+    name: faker.name.fullName(),
     email: faker.internet.email(),
     password,
     passwordConfirmation: password,

@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { BcryptAdapter } from '@/infra/criptography';
 
@@ -29,7 +29,7 @@ describe('BcryptAdapter', () => {
 
     test('Should return an id on success', async () => {
       const { sut } = makeSut();
-      const uuid = faker.random.uuid();
+      const uuid = faker.datatype.uuid();
       const password = faker.internet.password();
       jest.spyOn(bcrypt, 'hash').mockImplementationOnce(async () => await Promise.resolve(uuid));
       const result = await sut.hash(password);

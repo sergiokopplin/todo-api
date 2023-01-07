@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { LoginController } from '@/presentation/controllers';
 import { InvalidParamError, MissingParamError, ServerError } from '@/presentation/errors';

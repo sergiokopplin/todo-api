@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { PasswordStrengthError } from '@/presentation/errors';
 import { PasswordStrengthValidationSpy } from '@/tests/validation/mocks';

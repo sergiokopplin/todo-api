@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { DeleteCompletedTodosController } from '@/presentation/controllers';
 import { ServerError } from '@/presentation/errors';
@@ -22,7 +22,7 @@ const makeSut = (): SutTypes => {
 
 const mockRequest = (): DeleteCompletedTodosController.Request => {
   return {
-    accountId: faker.random.uuid(),
+    accountId: faker.datatype.uuid(),
   };
 };
 

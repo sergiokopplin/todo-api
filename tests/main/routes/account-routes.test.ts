@@ -1,5 +1,5 @@
 import { hash } from 'bcrypt';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { Collection } from 'mongodb';
 import request from 'supertest';
 
@@ -30,7 +30,7 @@ describe('Account Routes', () => {
 
       const validPassword = 'aS1!sQ2!';
       const account = {
-        name: faker.name.findName(),
+        name: faker.name.fullName(),
         email: faker.internet.email(),
         password: validPassword,
         passwordConfirmation: validPassword,
@@ -46,7 +46,7 @@ describe('Account Routes', () => {
 
       const validPassword = 'aS1!sQ2!';
       const account = {
-        name: faker.name.findName(),
+        name: faker.name.fullName(),
         email: faker.internet.email(),
         password: validPassword,
         passwordConfirmation: validPassword,

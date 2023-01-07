@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { InvalidParamError } from '@/presentation/errors';
 import { ObjectIdValidationSpy } from '@/tests/validation/mocks';
@@ -28,7 +28,7 @@ describe('ObjectIdValidator', () => {
 
   test('Should return empty if validation is ok', () => {
     const { sut } = makeSut();
-    expect(sut.validate({ id: faker.random.uuid() })).toBeFalsy();
+    expect(sut.validate({ id: faker.datatype.uuid() })).toBeFalsy();
   });
 
   test('Should return empty validation if optional', () => {

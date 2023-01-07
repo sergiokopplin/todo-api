@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { Collection } from 'mongodb';
 
 import { MongoHelper, AccountMongoRepository } from '@/infra/db';
@@ -60,7 +60,7 @@ describe('AccountMongoRepository', () => {
       const sut = makeSut();
       const account = await accountCollection.insertOne({ ...mockAccount });
       expect(account.ops[0].accessToken).toBeFalsy();
-      const accessToken = faker.random.uuid();
+      const accessToken = faker.datatype.uuid();
       await sut.updateAccessToken(account.ops[0]._id, accessToken);
       const updatedAccount = await accountCollection.findOne({
         _id: account.ops[0]._id,
@@ -70,16 +70,16 @@ describe('AccountMongoRepository', () => {
   });
 
   describe('loadByToken()', () => {
-    let name = faker.name.findName();
+    let name = faker.name.fullName();
     let email = faker.internet.email();
     let password = faker.internet.password();
-    let accessToken = faker.random.uuid();
+    let accessToken = faker.datatype.uuid();
 
     beforeEach(() => {
-      name = faker.name.findName();
+      name = faker.name.fullName();
       email = faker.internet.email();
       password = faker.internet.password();
-      accessToken = faker.random.uuid();
+      accessToken = faker.datatype.uuid();
     });
 
     test('Should return an account on loadByToken without role', async () => {

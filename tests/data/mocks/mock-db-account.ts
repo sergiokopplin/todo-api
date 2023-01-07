@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import {
   AddAccountRepository,
@@ -32,8 +32,8 @@ export class AddAccountRepositorySpy implements AddAccountRepository {
 export class LoadAccountByEmailRepositorySpy implements LoadAccountByEmailRepository {
   email: string;
   result = {
-    id: faker.random.uuid(),
-    name: faker.name.findName(),
+    id: faker.datatype.uuid(),
+    name: faker.name.fullName(),
     password: faker.internet.password(),
   };
 
@@ -47,7 +47,7 @@ export class LoadAccountByTokenRepositorySpy implements LoadAccountByTokenReposi
   token: string;
   role: string;
   result = {
-    id: faker.random.uuid(),
+    id: faker.datatype.uuid(),
   };
 
   async loadByToken(token: string, role?: string): Promise<LoadAccountByTokenRepository.Result> {

@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { LoadTodoController } from '@/presentation/controllers';
 import { InvalidParamError, MissingParamError, ServerError } from '@/presentation/errors';
@@ -7,7 +7,7 @@ import { LoadTodoSpy, ValidationSpy } from '@/tests/presentation/mocks';
 
 const mockRequest = (): LoadTodoController.Request => {
   return {
-    id: faker.random.uuid(),
+    id: faker.datatype.uuid(),
   };
 };
 

@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { DbLoadAccountByToken } from '@/data/usecases';
 import { DecrypterSpy, LoadAccountByTokenRepositorySpy } from '@/tests/data/mocks';
@@ -26,7 +26,7 @@ let role: string;
 
 describe('DbLoadAccountByToken Usecase', () => {
   beforeEach(() => {
-    token = faker.random.uuid();
+    token = faker.datatype.uuid();
     role = faker.random.word();
   });
 

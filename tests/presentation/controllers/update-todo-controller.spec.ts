@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { UpdateTodoController } from '@/presentation/controllers';
 import { InvalidParamError, MissingParamError, ServerError } from '@/presentation/errors';
@@ -7,7 +7,7 @@ import { ValidationSpy, UpdateTodoSpy } from '@/tests/presentation/mocks';
 
 const mockRequest = (): UpdateTodoController.Request => {
   return {
-    id: faker.random.uuid(),
+    id: faker.datatype.uuid(),
     title: faker.random.words(3),
     completed: true,
   };

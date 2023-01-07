@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { Todo } from '@/domain/models';
 import {
@@ -11,8 +11,8 @@ import {
 } from '@/domain/usecases';
 
 const mockTodo = (): Todo => ({
-  id: faker.random.uuid(),
-  accountId: faker.random.uuid(),
+  id: faker.datatype.uuid(),
+  accountId: faker.datatype.uuid(),
   title: faker.random.words(3),
   completed: false,
   dueDate: new Date(),
