@@ -1,7 +1,10 @@
 {
-  "extends": "@kopplin/tsconfig",
   "compilerOptions": {
     "outDir": "dist",
+    "module": "commonjs",
+    "target": "es2019",
+    "esModuleInterop": true,
+    "sourceMap": true,
     "rootDirs": ["src", "tests"],
     "baseUrl": "src",
     "paths": {
@@ -9,7 +12,6 @@
       "@/*": ["*"]
     }
   },
-  "include": ["src/**/*", "tests/**/*"],
-  "exclude": [],
-  "ignorePatterns": [".eslintrc.js"]
+  "include": ["src", "tests"],
+  "exclude": []
 }

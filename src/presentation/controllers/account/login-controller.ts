@@ -1,33 +1,33 @@
-import { Authentication } from '@/domain/usecases';
-import { badRequestError, ok, serverError, unauthorized } from '@/presentation/helpers';
-import { Controller, HttpResponse, Validation } from '@/presentation/protocols';
+import { Authentication } from '@/domain/usecases'
+import { badRequestError, ok, serverError, unauthorized } from '@/presentation/helpers'
+import { Controller, HttpResponse, Validation } from '@/presentation/protocols'
 
 export class LoginController implements Controller {
-  constructor(
+  constructor (
     private readonly validation: Validation,
-    private readonly authentication: Authentication,
+    private readonly authentication: Authentication
   ) {}
 
-  async handle(request: any): Promise<HttpResponse> {
+  async handle (request: any): Promise<HttpResponse> {
     try {
-      const error = this.validation.validate(request);
+      const error = this.validation.validate(request)
       if (error) {
-        return badRequestError(error);
+        return badRequestError(error)
       }
-      const authenticationModel = await this.authentication.auth(request);
+      const authenticationModel = await this.authentication.auth(request)
       if (!authenticationModel) {
-        return unauthorized();
+        return unauthorized()
       }
-      return ok(authenticationModel);
+      return ok(authenticationModel)
     } catch (error) {
-      return serverError(error);
+      return serverError(error)
     }
   }
 }
 
 export namespace LoginController {
   export interface Request {
-    email: string;
-    password: string;
+    email: string
+    password: string
   }
 }

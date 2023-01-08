@@ -1,38 +1,38 @@
-import { AddAccount, Authentication } from '@/domain/usecases';
-import { EmailInUseError } from '@/presentation/errors';
-import { serverError, forbiddenError, badRequestError, ok } from '@/presentation/helpers';
-import { Controller, HttpResponse, Validation } from '@/presentation/protocols';
+import { AddAccount, Authentication } from '@/domain/usecases'
+import { EmailInUseError } from '@/presentation/errors'
+import { serverError, forbiddenError, badRequestError, ok } from '@/presentation/helpers'
+import { Controller, HttpResponse, Validation } from '@/presentation/protocols'
 
 export class SignUpController implements Controller {
-  constructor(
+  constructor (
     private readonly validation: Validation,
     private readonly addAccount: AddAccount,
-    private readonly authentication: Authentication,
+    private readonly authentication: Authentication
   ) {}
 
-  async handle(request: SignUpController.Request): Promise<HttpResponse> {
+  async handle (request: SignUpController.Request): Promise<HttpResponse> {
     try {
-      const error = this.validation.validate(request);
+      const error = this.validation.validate(request)
       if (error) {
-        return badRequestError(error);
+        return badRequestError(error)
       }
-      const isValid = await this.addAccount.add(request);
+      const isValid = await this.addAccount.add(request)
       if (!isValid) {
-        return forbiddenError(new EmailInUseError());
+        return forbiddenError(new EmailInUseError())
       }
-      const account = await this.authentication.auth(request);
-      return ok(account);
+      const account = await this.authentication.auth(request)
+      return ok(account)
     } catch (error) {
-      return serverError(error);
+      return serverError(error)
     }
   }
 }
 
 export namespace SignUpController {
   export interface Request {
-    name: string;
-    email: string;
-    password: string;
-    passwordConfirmation: string;
+    name: string
+    email: string
+    password: string
+    passwordConfirmation: string
   }
 }

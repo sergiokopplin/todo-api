@@ -1,16 +1,16 @@
-import { EmailValidatorAdapter, PasswordStrengthValidatorAdapter } from '@/infra/validators';
-import { makeSignupValidation } from '@/main/factories';
+import { EmailValidatorAdapter, PasswordStrengthValidatorAdapter } from '@/infra/validators'
+import { makeSignupValidation } from '@/main/factories'
 import {
   CompareFieldsValidator,
   EmailValidator,
   PasswordStrengthValidator,
   RequiredFieldValidator,
-  ValidationComposite,
-} from '@/validation/validators';
+  ValidationComposite
+} from '@/validation/validators'
 
 describe('SignUpValidation Factory', () => {
   test('Should call ValidationComposite with all validations', () => {
-    const composite = makeSignupValidation();
+    const composite = makeSignupValidation()
     expect(composite).toEqual(
       ValidationComposite.build([
         new RequiredFieldValidator('name'),
@@ -21,10 +21,10 @@ describe('SignUpValidation Factory', () => {
         new RequiredFieldValidator('passwordConfirmation'),
         new PasswordStrengthValidator(
           'passwordConfirmation',
-          new PasswordStrengthValidatorAdapter(),
+          new PasswordStrengthValidatorAdapter()
         ),
-        new CompareFieldsValidator('passwordConfirmation', 'password'),
-      ]),
-    );
-  });
-});
+        new CompareFieldsValidator('passwordConfirmation', 'password')
+      ])
+    )
+  })
+})

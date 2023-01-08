@@ -3,22 +3,22 @@ export const deleteCompletedTodosPath = {
     tags: ['todos'],
     security: [
       {
-        apiKeyAuth: [],
-      },
+        apiKeyAuth: []
+      }
     ],
     responses: {
       204: {
-        description: 'No Response',
+        description: 'No Response'
       },
       401: {
-        $ref: '#/components/unauthorized',
+        $ref: '#/components/unauthorized'
       },
       404: {
-        $ref: '#/components/notFound',
+        $ref: '#/components/notFound'
       },
       500: {
-        $ref: '#/components/serverError',
-      },
-    },
-  },
-};
+        $ref: '#/components/serverError'
+      }
+    }
+  }
+}

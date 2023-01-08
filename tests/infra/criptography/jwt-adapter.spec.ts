@@ -1,43 +1,43 @@
-import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken'
 
-import { JwtAdapter } from '@/infra/criptography';
+import { JwtAdapter } from '@/infra/criptography'
 
 jest.mock('jsonwebtoken', () => ({
-  async sign(): Promise<string> {
-    return 'any_token';
-  },
-}));
+  async sign (): Promise<string> {
+    return 'any_token'
+  }
+}))
 
 const makeSut = (): SutTypes => {
-  const sut = new JwtAdapter('secret');
+  const sut = new JwtAdapter('secret')
 
   return {
-    sut,
-  };
-};
+    sut
+  }
+}
 
 interface SutTypes {
-  sut: JwtAdapter;
+  sut: JwtAdapter
 }
 
 describe('JwtAdapter', () => {
   describe('encrypt()', () => {
     test('Should call jwt with correct params', async () => {
-      const { sut } = makeSut();
-      const hashSpy = jest.spyOn(jwt, 'sign');
-      await sut.encrypt('any_id');
+      const { sut } = makeSut()
+      const hashSpy = jest.spyOn(jwt, 'sign')
+      await sut.encrypt('any_id')
       expect(hashSpy).toHaveBeenCalledWith(
         {
-          id: 'any_id',
+          id: 'any_id'
         },
-        'secret',
-      );
-    });
+        'secret'
+      )
+    })
 
     test('Should return an id on success', async () => {
-      const { sut } = makeSut();
-      const result = await sut.encrypt('any_id');
-      expect(result).toBe('any_token');
-    });
-  });
-});
+      const { sut } = makeSut()
+      const result = await sut.encrypt('any_id')
+      expect(result).toBe('any_token')
+    })
+  })
+})

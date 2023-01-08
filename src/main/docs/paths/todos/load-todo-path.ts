@@ -3,39 +3,39 @@ export const loadTodoPath = {
     tags: ['todos'],
     security: [
       {
-        apiKeyAuth: [],
-      },
+        apiKeyAuth: []
+      }
     ],
     parameters: [
       {
         name: 'id',
         in: 'path',
         required: true,
-        type: 'string',
-      },
+        type: 'string'
+      }
     ],
     responses: {
       200: {
         content: {
           'application/json': {
             schema: {
-              $ref: '#/schemas/todo',
-            },
-          },
-        },
+              $ref: '#/schemas/todo'
+            }
+          }
+        }
       },
       400: {
-        $ref: '#/components/badRequest',
+        $ref: '#/components/badRequest'
       },
       401: {
-        $ref: '#/components/unauthorized',
+        $ref: '#/components/unauthorized'
       },
       404: {
-        $ref: '#/components/notFound',
+        $ref: '#/components/notFound'
       },
       500: {
-        $ref: '#/components/serverError',
-      },
-    },
-  },
-};
+        $ref: '#/components/serverError'
+      }
+    }
+  }
+}

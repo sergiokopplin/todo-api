@@ -2,14 +2,14 @@ export const addTodoParamsSchema = {
   type: 'object',
   properties: {
     title: {
-      type: 'string',
+      type: 'string'
     },
     theme: {
-      type: 'string',
+      type: 'string'
     },
     dueDate: {
-      type: 'string',
-    },
+      type: 'string'
+    }
   },
-  required: ['title'],
-};
+  required: ['title']
+}

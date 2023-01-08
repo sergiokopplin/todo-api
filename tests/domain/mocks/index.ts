@@ -1,2 +1,2 @@
-export * from './mock-account';
-export * from './mock-todo';
+export * from './mock-account'
+export * from './mock-todo'

@@ -3,31 +3,31 @@ export const loadTodosPath = {
     tags: ['todos'],
     security: [
       {
-        apiKeyAuth: [],
-      },
+        apiKeyAuth: []
+      }
     ],
     responses: {
       200: {
         content: {
           'application/json': {
             schema: {
-              $ref: '#/schemas/todos',
-            },
-          },
-        },
+              $ref: '#/schemas/todos'
+            }
+          }
+        }
       },
       400: {
-        $ref: '#/components/badRequest',
+        $ref: '#/components/badRequest'
       },
       401: {
-        $ref: '#/components/unauthorized',
+        $ref: '#/components/unauthorized'
       },
       404: {
-        $ref: '#/components/notFound',
+        $ref: '#/components/notFound'
       },
       500: {
-        $ref: '#/components/serverError',
-      },
-    },
-  },
-};
+        $ref: '#/components/serverError'
+      }
+    }
+  }
+}

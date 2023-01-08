@@ -1,9 +1,9 @@
-import { ObjectId } from 'mongodb';
+import { ObjectId } from 'mongodb'
 
-import { ObjectIdValidation } from '@/validation/protocols';
+import { ObjectIdValidation } from '@/validation/protocols'
 
 export class ObjectIdValidatorAdapter implements ObjectIdValidation {
-  validate(id: string): boolean {
-    return ObjectId.isValid(id);
+  validate (id: string): boolean {
+    return ObjectId.isValid(id)
   }
 }

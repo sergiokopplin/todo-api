@@ -6,33 +6,33 @@ export const signupPath = {
       content: {
         'application/json': {
           schema: {
-            $ref: '#/schemas/signupParams',
-          },
-        },
-      },
+            $ref: '#/schemas/signupParams'
+          }
+        }
+      }
     },
     responses: {
       200: {
         content: {
           'application/json': {
             schema: {
-              $ref: '#/schemas/account',
-            },
-          },
-        },
+              $ref: '#/schemas/account'
+            }
+          }
+        }
       },
       400: {
-        $ref: '#/components/badRequest',
+        $ref: '#/components/badRequest'
       },
       403: {
-        $ref: '#/components/forbidden',
+        $ref: '#/components/forbidden'
       },
       404: {
-        $ref: '#/components/notFound',
+        $ref: '#/components/notFound'
       },
       500: {
-        $ref: '#/components/serverError',
-      },
-    },
-  },
-};
+        $ref: '#/components/serverError'
+      }
+    }
+  }
+}

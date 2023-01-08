@@ -1,2 +1,2 @@
-export * from './account-routes';
-export * from './todos-routes';
+export * from './account-routes'
+export * from './todos-routes'

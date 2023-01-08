@@ -1,3 +1,3 @@
-import bp from 'body-parser';
+import bp from 'body-parser'
 
-export const bodyParser = bp.json();
+export const bodyParser = bp.json()

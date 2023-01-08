@@ -1,5 +1,5 @@
-import { EmailValidatorAdapter, PasswordStrengthValidatorAdapter } from '@/infra/validators';
-import { ValidationComposite, ValidationBuilder } from '@/validation/validators';
+import { EmailValidatorAdapter, PasswordStrengthValidatorAdapter } from '@/infra/validators'
+import { ValidationComposite, ValidationBuilder } from '@/validation/validators'
 
 export const makeSignupValidation = (): ValidationComposite =>
   ValidationComposite.build([
@@ -13,5 +13,5 @@ export const makeSignupValidation = (): ValidationComposite =>
       .required()
       .password(new PasswordStrengthValidatorAdapter())
       .sameAs('password')
-      .build(),
-  ]);
+      .build()
+  ])

@@ -1,16 +1,16 @@
-import { Todo } from '@/domain/models';
+import { Todo } from '@/domain/models'
 
 export interface AddTodo {
-  add: (todo: AddTodo.Params) => Promise<AddTodo.Result>;
+  add: (todo: AddTodo.Params) => Promise<AddTodo.Result>
 }
 
 export namespace AddTodo {
-  export type Result = Todo;
+  export type Result = Todo
 
   export interface Params {
-    title: string;
-    dueDate?: Date;
-    theme?: string;
-    accountId: string;
+    title: string
+    dueDate?: Date
+    theme?: string
+    accountId: string
   }
 }
