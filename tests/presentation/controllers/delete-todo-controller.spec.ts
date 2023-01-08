@@ -55,7 +55,7 @@ describe('Delete Todo Controller', () => {
   test('Should throw if DeleteTodo throws', async () => {
     const { sut, deleteTodoSpy } = makeSut()
     jest.spyOn(deleteTodoSpy, 'delete').mockImplementationOnce(async () => {
-      return await Promise.reject(new ServerError(null))
+      await Promise.reject(new ServerError(null))
     })
     const response = await sut.handle(mockRequest())
     expect(response).toEqual(serverError(new ServerError(null)))

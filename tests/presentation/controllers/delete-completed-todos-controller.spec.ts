@@ -30,7 +30,7 @@ describe('DeleteCompletedTodos Controller', () => {
   test('Should throw if DeleteCompletedTodos throws', async () => {
     const { sut, deleteCompletedTodosSpy } = makeSut()
     jest.spyOn(deleteCompletedTodosSpy, 'delete').mockImplementationOnce(async () => {
-      return await Promise.reject(new ServerError(null))
+      await Promise.reject(new ServerError(null))
     })
     const response = await sut.handle(mockRequest())
     expect(response).toEqual(serverError(new ServerError(null)))

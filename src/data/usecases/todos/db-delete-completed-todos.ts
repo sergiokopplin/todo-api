@@ -5,6 +5,6 @@ export class DbDeleteCompletedTodos implements DeleteCompletedTodos {
   constructor (private readonly deleteTodoRepository: DeleteTodoRepository) {}
 
   async delete (accountId: string): Promise<void> {
-    return await this.deleteTodoRepository.deleteCompleted(accountId)
+    await this.deleteTodoRepository.deleteCompleted(accountId)
   }
 }

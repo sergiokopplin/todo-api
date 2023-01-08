@@ -25,7 +25,7 @@ describe('MinLengthValidator', () => {
 
   test('Should return empty validation if is ok', () => {
     const { sut } = makeSut()
-    expect(sut.validate({ field: field })).toBeFalsy()
+    expect(sut.validate({ field })).toBeFalsy()
   })
 
   test('Should return empty validation if optional', () => {
