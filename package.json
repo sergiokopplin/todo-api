@@ -16,13 +16,15 @@
     "lint:fix": "./node_modules/.bin/eslint src tests --fix",
     "lint:type": "./node_modules/.bin/tsc --noEmit",
     "lint": "./node_modules/.bin/eslint src tests",
+    "qa": "npm run lint:fix && npm run lint:type && npm run test",
     "start": "node dist/main/server.js",
     "test:ci": "npm test -- --coverage",
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "test:staged": "npm test -- --findRelatedTests",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
     "test": "jest --passWithNoTests --no-cache --maxWorkers=4",
-    "up": "npm run build && docker-compose up -d"
+    "up": "npm run build && docker-compose up -d",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
@@ -78,11 +80,5 @@
       "npx eslint src --fix",
       "npx eslint tests --fix"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run lint:type && npm run lint && npm run test:ci"
-    }
   }
 }
